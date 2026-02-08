@@ -6,7 +6,7 @@ The evolution from the original Transformer to today's frontier decoder-only mod
 
 "Attention Is All You Need" (Vaswani et al.) introduced the Transformer as an encoder-decoder model for machine translation. The key innovation: **self-attention** replacing recurrence entirely, allowing every token to attend to every other token in parallel. This eliminated the sequential bottleneck of RNNs/LSTMs and enabled massively parallel training on GPUs.
 
-The architecture established all the core components that remain today: Q/K/V attention, multi-head attention, feed-forward networks, residual connections, and layer normalization. See [[original-transformer-architecture]] for full details.
+The architecture established all the core components that remain today: Q/K/V attention, multi-head attention, feed-forward networks, residual connections, and layer normalization. See [[llm/original-transformer-architecture]] for full details.
 
 ## 2018: GPT-1 — The Start of Decoder-Only
 
