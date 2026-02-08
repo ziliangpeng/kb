@@ -12,7 +12,7 @@ The architecture established all the core components that remain today: Q/K/V at
 
 OpenAI took the Transformer decoder, dropped the encoder and cross-attention, and pre-trained it on unlabeled text with next-token prediction. 117M params, 12 layers. The idea: pre-train on lots of text, then fine-tune for specific tasks. This was novel — before this, NLP models were typically trained from scratch per task.
 
-## 2019: GPT-2 — Scale Brings Zero-Shot Abilities
+## 2019: [[llm/models/gpt2/architecture|GPT-2]] — Scale Brings Zero-Shot Abilities
 
 1.5B params. Same architecture but bigger. Key findings:
 
