@@ -30,9 +30,10 @@ This shift from "small data, many epochs" to "large data, fewer epochs" was a pr
 
 The GPT-2 paper was unusually sparse on training details. Here is what was confirmed from the paper and released code:
 
+- **Framework**: TensorFlow 1.x
 - **Batch size**: 512 sequences × 1024 tokens = ~0.5M tokens per batch
 - **Context length**: 1024 tokens
-- **Hardware**: 256 TPU v3 cores
+- **Hardware**: 256 Google Cloud TPU v3 cores (before OpenAI's partnership with Microsoft)
 - **Learning rate**: Manually tuned per model size for best perplexity on a 5% held-out sample of WebText. Specific values were not disclosed.
 - **Weight initialization**: Standard weights initialized with stddev=0.02. Residual layer weights scaled by 1/√N at initialization, where N is the number of residual layers. This prevents the residual stream from growing too large in deeper models.
 - **LayerNorm epsilon**: 1e-5 (from released code)
@@ -66,6 +67,7 @@ This was the opposite of GPT-1, which required fine-tuning with task-specific he
 
 | | GPT-1 | GPT-2 |
 |---|---|---|
+| **Framework** | TensorFlow | TensorFlow 1.x |
 | **Dataset** | [[llm/datasets/bookscorpus\|BooksCorpus]] (~1B words) | [[llm/datasets/webtext\|WebText]] (~10B tokens) |
 | **Data diversity** | Single domain (fiction books) | Multi-domain (web pages) |
 | **Epochs** | ~100 | Unknown (likely far fewer) |

@@ -97,6 +97,11 @@ Why decay: Early in training, large LR helps make big progress and learn broad p
 
 **Early adopter of this combination**: Neither warmup (from the original Transformer, 2017) nor cosine annealing (Loshchilov & Hutter, 2016) was new. But GPT-1 was an early adopter of combining **linear warmup + cosine annealing** for language model training. This combination became the **de facto standard** for LLM training — GPT-2/3, LLaMA, and most modern LLMs use this same pattern.
 
+### Implementation
+
+- **Framework**: TensorFlow
+- **Hardware**: 8 GPUs, trained for approximately 1 month
+
 ### Other Hyperparameters
 
 - **Batch size**: 64 sequences
