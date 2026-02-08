@@ -188,3 +188,16 @@ GPT-2's zero-shot approach is the conceptual bridge in a three-step evolution:
 | **Per-task labeled data** | Required | Not required | Not required (a few examples help) |
 
 GPT-2 proved the concept: tasks can emerge from pre-training alone. GPT-3 refined it: a few examples in the prompt dramatically boost performance without any weight updates.
+
+### An Important Clarification
+
+The table above can be misleading. It's not that GPT-2 "does zero-shot" and GPT-3 "does few-shot" as if they are different capabilities. GPT-3 can do zero-shot too — and better than GPT-2 at it. The GPT-3 paper actually evaluated all three settings: zero-shot, one-shot, and few-shot.
+
+The difference is in what each paper *chose to emphasize*:
+
+- **GPT-2's contribution**: proved that zero-shot task performance is possible at all. The paper deliberately tested only zero-shot to make the strongest claim — you don't need any fine-tuning.
+- **GPT-3's contribution**: systematically showed that putting a few examples in the prompt (few-shot) dramatically improves over zero-shot, without any weight updates. This is what they called "in-context learning."
+
+Few-shot helps for an intuitive reason: giving the model a couple of examples clarifies exactly what format and behavior you want. Zero-shot relies on the model guessing the right format from a vague hint like `TL;DR:` or `A:`. Few-shot removes that ambiguity.
+
+GPT-3 didn't lose zero-shot ability — it gained few-shot ability on top. Each generation expanded the range of what's possible without task-specific training.
