@@ -20,6 +20,8 @@ However, it's also one of the most controversial datasets in machine learning du
 - Filtered for books longer than 20,000 words
 - Total: ~985 million words (~4-6 GB of text)
 
+**Language**: English only.
+
 **Genres**: Romance, science fiction, fantasy, and other popular fiction genres heavily represented.
 
 ### Rise to Prominence (2015-2019)
