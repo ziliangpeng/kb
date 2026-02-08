@@ -58,7 +58,7 @@ In the decoder, a **causal mask** is applied before softmax — future positions
 Applied independently to each token position (same weights, different inputs):
 
 ```
-FFN(x) = W_2 · ReLU(W_1 · x + b_1) + b_2
+FFN(x) = W_2 · [[llm/activations/relu|ReLU]](W_1 · x + b_1) + b_2
 ```
 
 - **W_1**: E → 4E (up-projection, expanding the representation)
