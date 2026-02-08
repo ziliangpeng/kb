@@ -8,7 +8,7 @@ The evolution from the original Transformer to today's frontier decoder-only mod
 
 The architecture established all the core components that remain today: Q/K/V attention, multi-head attention, feed-forward networks, residual connections, and layer normalization. See [[llm/original-transformer-architecture]] for full details.
 
-## 2018: GPT-1 — The Start of Decoder-Only
+## 2018: [[llm/models/gpt1/architecture|GPT-1]] — The Start of Decoder-Only
 
 OpenAI took the Transformer decoder, dropped the encoder and cross-attention, and pre-trained it on unlabeled text with next-token prediction. 117M params, 12 layers. The idea: pre-train on lots of text, then fine-tune for specific tasks. This was novel — before this, NLP models were typically trained from scratch per task.
 
