@@ -20,6 +20,20 @@ OpenAI took the Transformer decoder, dropped the encoder and cross-attention, an
 - Introduced **Pre-Norm** (LayerNorm before sublayers), which became standard because it trains more stably
 - Showed that scale itself unlocks capabilities
 
+## 2016-2019: Scaling Infrastructure
+
+GPT-2 showed that scale unlocks capabilities, but getting to GPT-3 scale (175B params, ~10,000 GPUs) required a stack of infrastructure breakthroughs. The key innovations:
+
+**Mixed-Precision Training** (NVIDIA, 2017): Training in FP16 with FP32 master weights. This roughly halves memory usage and doubles throughput on NVIDIA's Tensor Cores (introduced with the V100 GPU in 2017). Loss scaling prevents small gradients from underflowing to zero in FP16. Every large model training run uses this.
+
+**Gradient Checkpointing** (Chen et al., 2016): Instead of storing all intermediate activations for backpropagation, save only periodic checkpoints and recompute the rest during the backward pass. Trades ~20-33% more compute for dramatically less memory — enabling 2-10x larger models per GPU. Universally adopted.
+
+**Tensor Parallelism / Megatron-LM** (NVIDIA, Sep 2019): Splitting individual transformer layers across multiple GPUs. Before this, you were limited to models that fit on a single GPU's memory. NVIDIA demonstrated this by training an 8.3B parameter model (GPT-2 architecture, 5.6x larger) on 512 V100s. The Megatron framework became foundational — Microsoft used it to train **Turing-NLG** (17B params, Feb 2020), which held the scale record until GPT-3. The collaboration later culminated in **Megatron-Turing NLG 530B** (Oct 2021), the largest dense language model at the time.
+
+**ZeRO / DeepSpeed** (Microsoft, Oct 2019 paper, Feb 2020 release): In standard data parallelism, every GPU redundantly stores a full copy of optimizer states, gradients, and parameters — 16 bytes per parameter with Adam. ZeRO partitions this across GPUs: Stage 1 partitions optimizer states (~4x savings), Stage 2 adds gradients, Stage 3 adds parameters themselves. This achieves the memory efficiency of model parallelism with the simplicity of data parallelism. Combined with Megatron's tensor parallelism, this became the standard recipe for training 100B+ parameter models.
+
+These four are the critical enablers, but the full stack included more: **NVIDIA V100 GPUs** (2017) with Tensor Cores provided the raw hardware; **NVLink/NVSwitch** (2016-2018) gave ~10-20x PCIe bandwidth for GPU-to-GPU communication, making tensor parallelism practical; **pipeline parallelism** (GPipe from Google 2018, PipeDream from Microsoft 2019) enabled splitting models by layer groups across nodes; **AdamW** (Loshchilov & Hutter, 2017) fixed Adam's weight decay and became the standard LLM optimizer; **learning rate warmup** (Goyal et al., 2017) made large-batch training stable; **NCCL and ring all-reduce** (NVIDIA/Baidu, 2017) provided efficient multi-GPU gradient synchronization; and **Google's TPU v2/v3** (2017-2018) offered an alternative hardware path with native bfloat16 support that powered BERT and T5.
+
 ## 2020: GPT-3 — The Scaling Breakthrough
 
 175B params. The moment everything changed:
