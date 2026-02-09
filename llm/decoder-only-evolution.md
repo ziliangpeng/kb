@@ -1,6 +1,8 @@
-# Decoder-Only Evolution
+# Decoder-Only Architecture Evolution
 
-The evolution from the original Transformer to today's frontier decoder-only models.
+The technical evolution of decoder-only transformer architectures from 2017 to present, focusing on architectural innovations and training infrastructure.
+
+For model releases, company movements, and market dynamics, see [[llm/industry-timeline|LLM Industry Timeline]].
 
 ## 2017: The Original Transformer
 
@@ -34,20 +36,22 @@ GPT-2 showed that scale unlocks capabilities, but getting to GPT-3 scale (175B p
 
 These four are the critical enablers, but the full stack included more: **NVIDIA V100 GPUs** (2017) with Tensor Cores provided the raw hardware; **NVLink/NVSwitch** (2016-2018) gave ~10-20x PCIe bandwidth for GPU-to-GPU communication, making tensor parallelism practical; **pipeline parallelism** (GPipe from Google 2018, PipeDream from Microsoft 2019) enabled splitting models by layer groups across nodes; **AdamW** (Loshchilov & Hutter, 2017) fixed Adam's weight decay and became the standard LLM optimizer; **learning rate warmup** (Goyal et al., 2017) made large-batch training stable; **NCCL and ring all-reduce** (NVIDIA/Baidu, 2017) provided efficient multi-GPU gradient synchronization; and **Google's TPU v2/v3** (2017-2018) offered an alternative hardware path with native bfloat16 support that powered BERT and T5.
 
-## 2020: GPT-3 — The Scaling Breakthrough
+## 2020: [[llm/models/gpt3/architecture|GPT-3]] — The Scaling Breakthrough
 
-175B params. The moment everything changed:
+175B params. Validated the scaling hypothesis:
 
 - **In-context learning**: give the model a few examples in the prompt and it can do the task, no fine-tuning needed
 - Published **scaling laws** (Kaplan et al.): model performance improves predictably as a power law with compute, data, and parameters
-- Architecturally identical to GPT-2, just much bigger. The lesson: you don't need architectural innovations, you need scale
-- Spawned the entire "foundation model" paradigm
+- Architecturally identical to GPT-2, just much bigger. The lesson: at this stage, scale mattered more than architectural innovations
+- Training infrastructure: Combined Megatron-LM (tensor parallelism) + DeepSpeed (ZeRO) to train on ~10,000 V100 GPUs
+
+See [[llm/models/gpt3/backstories|GPT-3 Backstories]] for development context and market impact.
 
 ## 2022: Chinchilla — Fix the Scaling Recipe
 
 DeepMind showed GPT-3 was **undertrained**. The Chinchilla paper demonstrated that for a fixed compute budget, you should scale parameters and training data roughly equally. GPT-3 had 175B params but was trained on only 300B tokens — Chinchilla used 70B params trained on 1.4T tokens and performed better.
 
-This changed the industry: every model after Chinchilla trained on much more data relative to parameter count.
+**Key finding**: The optimal ratio is roughly 20 tokens per parameter. GPT-3 was trained on 1.7 tokens/param, well below optimal. Models after Chinchilla train on much more data relative to parameter count.
 
 ## 2022: PaLM — Architectural Refinements
 
@@ -130,13 +134,26 @@ Key models: OpenAI o1/o3, DeepSeek-R1. The architecture is still decoder-only �
 
 ## Current State (2025)
 
-The standard recipe for a frontier LLM today:
+The standard architectural recipe for a frontier LLM today:
 
 - **Architecture**: Decoder-only, Pre-Norm with RMSNorm, SwiGLU FFN, RoPE, GQA or MLA
-- **Pre-training**: Next-token prediction on trillions of tokens
+- **Pre-training**: Next-token prediction on trillions of tokens (following Chinchilla scaling: ~20 tokens per parameter)
 - **Post-training**: SFT → preference optimization (RLHF or DPO) → possibly RL for reasoning
 - **Optionally**: MoE for efficiency at scale
-- **Context**: 128K+ tokens
+- **Context**: 128K+ tokens standard, up to 1M+ in some models
 - **Inference**: Reasoning traces for hard problems
 
-The architecture itself has been relatively stable since LLaMA (2023). Most innovation now is in training data, post-training methods, MoE scaling, and inference-time reasoning.
+The core architecture has been relatively stable since LLaMA (2023). Most innovation now is in:
+- Training efficiency (MoE, better parallelism strategies)
+- Post-training methods (DPO variants, RL for reasoning)
+- Inference optimization (KV cache compression, speculative decoding)
+- Scaling laws refinement (optimal data/compute trade-offs)
+
+---
+
+## Related Documents
+
+- [[llm/industry-timeline|LLM Industry Timeline]] - Model releases, companies, and market dynamics
+- [[llm/original-transformer-architecture|Original Transformer Architecture]] - The 2017 foundation
+- [[llm/models/gpt3/architecture|GPT-3 Architecture]] - The scaling breakthrough
+- [[llm/models/gpt3/backstories|GPT-3 Backstories]] - Context and impact
