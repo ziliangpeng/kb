@@ -322,6 +322,6 @@ Chinese companies rapidly close the gap with Western labs:
 
 ## Related Documents
 
-- [[llm/decoder-only-evolution|Decoder-Only Architecture Evolution]] - Technical/architectural timeline
+- [[llm/architecture-evolution|LLM Architecture Evolution]] - Technical/architectural timeline
 - [[llm/models/gpt3/backstories|GPT-3 Backstories]] - Deep dive on GPT-3's context and impact
 - [[llm/models/gpt3/few-shot-learning|GPT-3 Few-Shot Learning]] - The capability that started it all

@@ -1,4 +1,4 @@
-# Decoder-Only Architecture Evolution
+# LLM Architecture Evolution
 
 The technical evolution of decoder-only transformer architectures from 2017 to present, focusing on architectural innovations and training infrastructure.
 
