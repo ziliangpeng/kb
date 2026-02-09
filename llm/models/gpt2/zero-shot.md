@@ -8,6 +8,19 @@ GPT-2 has **no fine-tuning step**. After pre-training, the model is evaluated di
 
 The insight: if your training data ([[llm/datasets/webtext|WebText]]) is large and diverse enough, the model has already seen natural examples of people doing tasks — asking and answering questions, writing summaries, translating between languages. The model learns these patterns implicitly, purely from predicting the next token.
 
+## Why This is Revolutionary
+
+GPT-2's zero-shot capability represented a fundamental paradigm shift in how we think about training and deploying language models:
+
+- **One model, many tasks**: Unlike GPT-1, which required training a separate fine-tuned model for each task, GPT-2 can handle multiple tasks out of the box
+- **No labeled data needed**: Eliminates the bottleneck of collecting thousands of task-specific labeled examples
+- **No gradient updates**: Tasks are performed purely through clever prompting, not through weight updates
+- **Deployment simplicity**: Ship one model that works on any task, rather than managing dozens of specialized models
+
+This challenged the prevailing wisdom in NLP at the time: **you don't need task-specific training if your pre-training is good enough**. The entire supervised learning pipeline—collecting labeled data, fine-tuning, evaluating, deploying—could potentially be replaced by just writing a good prompt.
+
+The implications were profound: if zero-shot works at 1.5B parameters, what happens at 10B? 100B? This directly motivated the scaling experiments that led to GPT-3.
+
 ## Task Conditioning Through Text
 
 GPT-1 specified tasks through architecture: special delimiter tokens (`[Start]`, `$`, `[Extract]`), task-specific linear heads, and input transformations.
@@ -160,20 +173,73 @@ The model answers purely from knowledge stored in its weights during pre-trainin
 
 ## The Scaling Story
 
-Across all tasks, performance scaled log-linearly with model size. Every task improved as the model went from 124M → 355M → 774M → 1.5B. No task plateaued. And all models still underfit WebText, suggesting even larger models would yield further gains.
+The paper evaluated 4 model sizes: **124M, 355M, 774M, and 1.5B parameters**. Across all tasks, performance scaled log-linearly with model size—every task improved as models grew larger, with no signs of saturation.
 
-This directly foreshadowed GPT-3: if bigger models always do better, and the current model hasn't saturated the data, then the obvious next step is to scale up dramatically.
+Specific examples:
+
+**Children's Book Test (Common Nouns)**:
+- 124M: 83.4%
+- 355M: 87.1%
+- 774M: 88.8%
+- 1.5B: **93.3%** (new SOTA)
+
+**LAMBADA (accuracy)**:
+- 124M: 42.3%
+- 355M: 51.2%
+- 774M: 54.3%
+- 1.5B: **63.2%** (with stop-word filter)
+
+**Winograd Schema Challenge**:
+- 124M: 62.9%
+- 355M: 65.4%
+- 774M: 67.3%
+- 1.5B: **70.7%** (new SOTA)
+
+**Reading Comprehension (CoQA F1)**:
+- 124M: 38
+- 355M: 46
+- 774M: 50
+- 1.5B: **55** (competitive with supervised baselines)
+
+Every task followed this pattern. No task plateaued at 1.5B. And critically, all model sizes still underfit WebText—the training loss continued to decrease, suggesting the models hadn't fully absorbed the knowledge in the training data.
+
+The paper's conclusion: "performance on these tasks depends on model capacity" and larger models would likely yield further gains. This **scaling hypothesis** directly foreshadowed GPT-3: if bigger models always do better, and current models haven't saturated the data, then the obvious next step is to scale up dramatically (which OpenAI did, jumping from 1.5B to 175B).
+
+## Where GPT-2 Excelled
+
+Tasks where zero-shot GPT-2 matched or exceeded supervised baselines:
+
+- **Language modeling**: SOTA on 7 out of 8 benchmarks (Penn Treebank, WikiText, etc.)
+- **Children's Book Test**: 93.3% common nouns, 89.1% named entities (new SOTA)
+- **LAMBADA**: Perplexity 8.6 (new SOTA), accuracy 63.2% (new SOTA)
+- **Winograd Schema Challenge**: 70.7% (new SOTA, +7% over previous best)
+- **Reading comprehension (CoQA)**: 55 F1 (matched 3 out of 4 supervised baselines trained on 127K examples)
+
+These results demonstrated that for tasks involving pattern recognition, commonsense reasoning, and language understanding, zero-shot performance was surprisingly competitive.
 
 ## Limitations
 
-The paper was honest about the shortcomings:
+The paper was honest about where zero-shot struggled:
 
-- **Summarization**: barely above extractive baselines, often confused specific details
-- **Translation**: 5-11.5 BLEU is far below any real translation system
-- **Question answering**: 4.1% exact match vs 30-50% for retrieval-based systems
-- **Reading comprehension**: the bright spot — competitive with supervised baselines
+- **Summarization**: ROUGE scores barely above extractive baselines (random 3 sentences); often confused specific details or generated generic summaries
+- **Translation**: 5 BLEU (En→Fr) and 11.5 BLEU (Fr→En) far below neural MT systems (typically 35-40 BLEU); minimal bilingual data in WebText (~10MB French)
+- **Question answering**: 4.1% exact match on Natural Questions vs 30-50% for retrieval-based systems; model lacked comprehensive factual knowledge
+- **Task ambiguity**: Zero-shot relies on vague hints like `TL;DR:` or `A:`—the model sometimes misunderstood the task format
 
-The paper concluded: "the zero-shot performance of GPT-2 is still far from use-able" for most practical tasks. The results were a proof of concept, not a production system.
+The paper concluded: "the zero-shot performance of GPT-2 is still far from use-able" for most practical tasks. The results were a proof of concept, not a production system. Tasks requiring precise factual recall, complex reasoning over multiple steps, or exposure to non-English languages remained challenging.
+
+## Impact on the Field
+
+GPT-2's zero-shot capability had far-reaching consequences:
+
+- **Launched prompt engineering**: Showed that task specification through natural language (like `TL;DR:`) could replace architectural modifications, spawning the field of prompt design
+- **Validated scaling laws**: Demonstrated log-linear improvement across 4 orders of magnitude (124M → 1.5B), suggesting continued scaling would yield better results
+- **Questioned fine-tuning necessity**: Challenged the assumption that task-specific training is required for good performance
+- **Enabled API-first models**: Made it practical to deploy one general model accessible via API, rather than distributing fine-tuned checkpoints
+- **Safety concerns**: GPT-2's text generation quality raised concerns about synthetic text and disinformation, leading to OpenAI's staged release strategy
+- **Inspired GPT-3**: The clear scaling trend and lack of saturation directly motivated the 100x scale-up to 175B parameters
+
+The paradigm shift from "pre-train then fine-tune" to "just pre-train well enough" became the foundation for modern LLM development.
 
 ## The Progression: GPT-1 → GPT-2 → GPT-3
 
