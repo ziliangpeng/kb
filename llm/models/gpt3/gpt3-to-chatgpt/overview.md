@@ -4,7 +4,17 @@ The path from GPT-3 (June 2020) to ChatGPT (November 2022) involved several key 
 
 ## Timeline
 
-### 1. **Codex** - July 2021
+### 1. **Learning to Summarize from Human Feedback** - September 2020
+
+The first application of RLHF to a GPT-3 class model. Fine-tuned GPT-3 (1.3B and 6.7B sizes) to summarize text using the full pipeline that would later power InstructGPT and ChatGPT: supervised fine-tuning on human demonstrations, training a reward model on human comparisons, then optimizing with PPO against the reward model. Published just 3 months after GPT-3, this was the proof of concept that RLHF works on large language models. Key authors (Long Ouyang, Jeff Wu) went on to author InstructGPT.
+
+**Paper**: ["Learning to summarize from human feedback"](https://arxiv.org/abs/2009.01325) (Stiennon et al., September 2020, NeurIPS 2020)
+
+**Impact**: Proved RLHF works on LLMs, established the SFT → RM → PPO pipeline that became the industry standard through InstructGPT and ChatGPT.
+
+---
+
+### 2. **Codex** - July 2021
 
 GPT-3 fine-tuned on code (159GB of Python code from GitHub). TabNine (2019) had already proved transformers could assist with coding by fine-tuning GPT-2, and GPT-3 itself showed accidental code-writing ability — Codex formalized this into a dedicated model, which powered GitHub Copilot as its first major commercial application.
 
@@ -16,19 +26,19 @@ GPT-3 fine-tuned on code (159GB of Python code from GitHub). TabNine (2019) had 
 
 ---
 
-### 2. **WebGPT** - December 2021
+### 3. **WebGPT** - December 2021
 
-GPT-3 fine-tuned to use a text-based web browser for question answering. Early experiments with tool use and RLHF for evaluating retrieval quality.
+GPT-3 fine-tuned to use a text-based web browser for question answering. The model issues commands (search, click, scroll, quote) to browse the web, collects references, then composes answers with citations. Neither tool use nor RLHF originated here — RLHF was established by Christiano et al. (2017) and applied to summarization by Stiennon et al. (2020), while retrieval-augmented models like REALM and RAG (2020) preceded it. But WebGPT was an early major milestone that combined both in a complex, agentic setting: the model itself decides when and how to use tools, and is trained end-to-end with human feedback. This pattern (LLM issuing tool commands + RLHF) became foundational for ChatGPT's browsing mode, function calling, and modern agent systems.
 
 **Paper**: ["WebGPT: Browser-assisted question-answering with human feedback"](https://arxiv.org/abs/2112.09332) (Nakano et al., December 2021)
 
-**Impact**: Pioneered tool use in language models, demonstrated that LLMs could learn to navigate and cite web sources.
+**Impact**: Early milestone for both agentic tool use and RLHF in LLMs. Demonstrated that models could learn to browse the web, cite sources, and produce answers preferred over human-written ones 56% of the time. Its ideas were absorbed into later products (ChatGPT browsing) rather than becoming a standalone product.
 
 **See**: [[llm/models/gpt3/gpt3-to-chatgpt/webgpt|WebGPT documentation]]
 
 ---
 
-### 3. **InstructGPT** - January 2022
+### 4. **InstructGPT** - January 2022
 
 The breakthrough that made ChatGPT possible. Introduced the three-stage RLHF (Reinforcement Learning from Human Feedback) pipeline: Supervised Fine-Tuning → Reward Model → PPO optimization.
 
@@ -42,7 +52,7 @@ The breakthrough that made ChatGPT possible. Introduced the three-stage RLHF (Re
 
 ---
 
-### 4. **GPT-3.5 Series** - March-November 2022
+### 5. **GPT-3.5 Series** - March-November 2022
 
 A series of models trained on a blend of text and code (integrating Codex improvements) with various fine-tuning approaches. Retroactively named "GPT-3.5" when ChatGPT launched.
 
@@ -59,7 +69,7 @@ A series of models trained on a blend of text and code (integrating Codex improv
 
 ---
 
-### 5. **ChatGPT** - November 30, 2022
+### 6. **ChatGPT** - November 30, 2022
 
 Fine-tuned from the GPT-3.5 series (likely `text-davinci-003`) with additional conversational optimization. Added dialogue format and launched as a free web interface.
 
@@ -81,8 +91,10 @@ ChatGPT represents the convergence of three parallel research directions:
 
 ```
 GPT-3 (June 2020)
-  ├─→ Codex (code training) ─────────────┐
-  ├─→ WebGPT (tool use + early RLHF) ────┤ (influences but not direct path)
+  ├─→ Summarization RLHF (Sept 2020) ────→ proved RLHF works on LLMs
+  │                                              ↓
+  ├─→ Codex (code training) ─────────────┐  WebGPT (Dec 2021)
+  │                                      │  (tool use + RLHF experience)
   └─→ InstructGPT (RLHF methodology) ────┼─→ Combine code + RLHF
                                           │
                                           ↓
