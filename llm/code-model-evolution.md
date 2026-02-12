@@ -52,7 +52,7 @@ OpenAI's breakthrough: GPT fine-tuned on 159GB of Python code from 54 million Gi
 
 Codex's key contribution was **scale**: previous code models were mostly encoder-based (for understanding) or small generative models (100M-400M params). Codex showed that scaling a decoder-only model to 12B parameters with massive code data produced dramatically better code generation.
 
-A production version of Codex powered **GitHub Copilot**, launched as a technical preview on June 29, 2021.
+A production version of Codex powered **GitHub Copilot**, launched as a technical preview on June 29, 2021. While TabNine pioneered the concept of transformer-assisted coding, Codex/Copilot was the first code-specialized transformer to achieve massive adoption — surpassing one million users within months and becoming one of the earliest commercially successful LLM products.
 
 See [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex]] for detailed documentation.
 
