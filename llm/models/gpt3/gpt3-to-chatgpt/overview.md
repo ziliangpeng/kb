@@ -28,11 +28,19 @@ GPT-3 fine-tuned on code (159GB of Python code from GitHub). TabNine (2019) had 
 
 ### 3. **WebGPT** - December 2021
 
-GPT-3 fine-tuned to use a text-based web browser for question answering. The model issues commands (search, click, scroll, quote) to browse the web, collects references, then composes answers with citations. Neither tool use nor RLHF originated here — RLHF was established by Christiano et al. (2017) and applied to summarization by Stiennon et al. (2020), while retrieval-augmented models like REALM and RAG (2020) preceded it. But WebGPT was an early major milestone that combined both in a complex, agentic setting: the model itself decides when and how to use tools, and is trained end-to-end with human feedback. This pattern (LLM issuing tool commands + RLHF) became foundational for ChatGPT's browsing mode, function calling, and modern agent systems.
+GPT-3 fine-tuned to use a text-based web browser for question answering. The model issues commands (search, click, scroll, quote) to browse the web, collects references, then composes answers with citations. Tested on three GPT-3 sizes: 760M, 13B, and 175B.
+
+Neither tool use nor RLHF originated here — RLHF was established by Christiano et al. (2017) and applied to summarization by Stiennon et al. (2020), while retrieval-augmented models like REALM and RAG (2020) preceded it. But WebGPT was an early major milestone that combined both in a complex, agentic setting: the model itself decides when and how to use tools, and is trained end-to-end with human feedback. This pattern (LLM issuing tool commands + RLHF) became foundational for ChatGPT's browsing mode, function calling, and modern agent systems.
+
+**Training pipeline**: Used the same four-stage approach later seen in InstructGPT — behavior cloning (supervised fine-tuning on ~6,000 human browsing demonstrations), reward modeling (trained on ~21,500 human comparisons), reinforcement learning (PPO against the reward model), and rejection sampling (generate multiple answers, pick the one the reward model scores highest). Notably, the best model used BC + rejection sampling — RL provided only a small additional benefit when combined with rejection sampling.
+
+**Key results**: The 175B best-of-64 model's answers were preferred over human demonstrators' answers **56%** of the time, and over Reddit's highest-voted answers **69%** of the time. On TruthfulQA, WebGPT answers were true 75% of the time (vs GPT-3's much lower scores) and both true and informative 54% of the time.
+
+**Connection to InstructGPT**: John Schulman appears as an author on both papers. The RLHF pipeline (BC → RM → PPO) is identical. WebGPT proved this pipeline works for complex multi-step tasks (browsing + answer synthesis), building confidence to apply it to the more general instruction-following problem in InstructGPT one month later.
 
 **Paper**: ["WebGPT: Browser-assisted question-answering with human feedback"](https://arxiv.org/abs/2112.09332) (Nakano et al., December 2021)
 
-**Impact**: Early milestone for both agentic tool use and RLHF in LLMs. Demonstrated that models could learn to browse the web, cite sources, and produce answers preferred over human-written ones 56% of the time. Its ideas were absorbed into later products (ChatGPT browsing) rather than becoming a standalone product.
+**Impact**: Early milestone for both agentic tool use and RLHF in LLMs. Its ideas were absorbed into later products (ChatGPT browsing) rather than becoming a standalone product. Never launched as a user-facing tool.
 
 **See**: [[llm/models/gpt3/gpt3-to-chatgpt/webgpt|WebGPT documentation]]
 
