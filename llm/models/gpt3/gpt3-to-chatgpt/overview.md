@@ -6,13 +6,13 @@ The path from GPT-3 (June 2020) to ChatGPT (November 2022) involved several key 
 
 ### 1. **Codex** - July 2021
 
-GPT-3 fine-tuned on code (159GB of Python code from GitHub). Demonstrated that language models could be specialized for programming tasks.
+GPT-3 fine-tuned on code (159GB of Python code from GitHub). TabNine (2019) had already proved transformers could assist with coding by fine-tuning GPT-2, and GPT-3 itself showed accidental code-writing ability — Codex formalized this into a dedicated model, which powered GitHub Copilot as its first major commercial application.
 
 **Paper**: ["Evaluating Large Language Models Trained on Code"](https://arxiv.org/abs/2107.03374) (Chen et al., July 2021)
 
 **Impact**: Powers GitHub Copilot, established code generation as a major LLM application.
 
-**See**: [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex documentation]]
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex documentation]]
 
 ---
 

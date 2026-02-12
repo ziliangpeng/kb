@@ -104,7 +104,7 @@ Copilot's success demonstrated that LLM-powered products could generate real, re
 
 ## Related Documents
 
-- [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex]] - The model that powers Copilot
-- [[llm/models/gpt3/gpt3-to-chatgpt/codex-backstory|Codex Backstory]] - Why OpenAI built Codex
+- [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex]] - The model that powers Copilot
+- [[llm/models/gpt3/gpt3-to-chatgpt/codex/backstory|Codex Backstory]] - Why OpenAI built Codex
 - [[llm/models/gpt3/gpt3-to-chatgpt/overview|GPT-3 to ChatGPT Overview]] - Timeline and evolution
 - [[llm/code-model-evolution|Code Model Evolution]] - Broader code model landscape

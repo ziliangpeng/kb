@@ -87,7 +87,7 @@ Codex and Copilot established several important precedents:
 
 ## Related Documents
 
-- [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex]] - Technical details and model specifications
+- [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex]] - Technical details and model specifications
 - [[llm/models/gpt3/gpt3-to-chatgpt/overview|GPT-3 to ChatGPT Overview]] - Timeline and evolution
 - [[llm/code-model-evolution|Code Model Evolution]] - Broader code model landscape
 - [[llm/models/gpt3/backstories|GPT-3 Backstories]] - GPT-3's context and impact

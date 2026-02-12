@@ -54,7 +54,7 @@ Codex's key contribution was **scale**: previous code models were mostly encoder
 
 A production version of Codex powered **GitHub Copilot**, launched as a technical preview on June 29, 2021.
 
-See [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex]] for detailed documentation.
+See [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex]] for detailed documentation.
 
 ## Key Insight: Two Eras
 
@@ -78,6 +78,6 @@ Codex bridged the gap by showing that a large-scale decoder-only model could gen
 
 ## Related Documents
 
-- [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex]] - Detailed documentation
+- [[llm/models/gpt3/gpt3-to-chatgpt/codex/architecture|Codex]] - Detailed documentation
 - [[llm/architecture-evolution|LLM Architecture Evolution]] - General architecture timeline
 - [[llm/industry-timeline|LLM Industry Timeline]] - Broader market context
