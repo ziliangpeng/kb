@@ -1,0 +1,104 @@
+# GPT-3 to ChatGPT: Evolution Overview
+
+The path from GPT-3 (June 2020) to ChatGPT (November 2022) involved several key developments that explored different directions: code specialization, tool use, and instruction following. This directory documents each step in chronological order.
+
+## Timeline
+
+### 1. **Codex** - July 2021
+
+GPT-3 fine-tuned on code (159GB of Python code from GitHub). Demonstrated that language models could be specialized for programming tasks.
+
+**Paper**: ["Evaluating Large Language Models Trained on Code"](https://arxiv.org/abs/2107.03374) (Chen et al., July 2021)
+
+**Impact**: Powers GitHub Copilot, established code generation as a major LLM application.
+
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/codex|Codex documentation]]
+
+---
+
+### 2. **WebGPT** - December 2021
+
+GPT-3 fine-tuned to use a text-based web browser for question answering. Early experiments with tool use and RLHF for evaluating retrieval quality.
+
+**Paper**: ["WebGPT: Browser-assisted question-answering with human feedback"](https://arxiv.org/abs/2112.09332) (Nakano et al., December 2021)
+
+**Impact**: Pioneered tool use in language models, demonstrated that LLMs could learn to navigate and cite web sources.
+
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/webgpt|WebGPT documentation]]
+
+---
+
+### 3. **InstructGPT** - January 2022
+
+The breakthrough that made ChatGPT possible. Introduced the three-stage RLHF (Reinforcement Learning from Human Feedback) pipeline: Supervised Fine-Tuning → Reward Model → PPO optimization.
+
+**Paper**: ["Training language models to follow instructions with human feedback"](https://arxiv.org/abs/2203.02155) (Ouyang et al., March 2022)
+
+**Models**: `text-davinci-001` (deployed January 2022)
+
+**Impact**: Showed that a 1.3B parameter model with RLHF could outperform 175B GPT-3 on instruction following. Established RLHF as the standard post-training approach for all modern LLMs.
+
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/instructgpt|InstructGPT documentation]]
+
+---
+
+### 4. **GPT-3.5 Series** - March-November 2022
+
+A series of models trained on a blend of text and code (integrating Codex improvements) with various fine-tuning approaches. Retroactively named "GPT-3.5" when ChatGPT launched.
+
+**Models**:
+- **`code-davinci-002`** (March 15, 2022) - Base model trained on text + code, foundation for the series
+- **`text-davinci-002`** (March 15, 2022) - Fine-tuned from code-davinci-002 using supervised learning (FeedME method)
+- **`text-davinci-003`** (November 28, 2022) - Trained with full RLHF (PPO), closest to InstructGPT methodology
+
+**Documentation**: [OpenAI API - davinci-002](https://platform.openai.com/docs/models/davinci-002)
+
+**Impact**: Combined code training (from Codex) with instruction following (from InstructGPT), creating a more capable and versatile base model.
+
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/gpt3.5|GPT-3.5 documentation]]
+
+---
+
+### 5. **ChatGPT** - November 30, 2022
+
+Fine-tuned from the GPT-3.5 series (likely `text-davinci-003`) with additional conversational optimization. Added dialogue format and launched as a free web interface.
+
+**Announcement**: ["Introducing ChatGPT"](https://openai.com/index/chatgpt/) (OpenAI blog, November 30, 2022)
+
+**Impact**:
+- 1 million users in 5 days
+- Fastest-growing consumer application in history
+- Changed public perception of AI capabilities
+- Launched the modern chatbot era
+
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt|ChatGPT documentation]]
+
+---
+
+## The Convergence
+
+ChatGPT represents the convergence of three parallel research directions:
+
+```
+GPT-3 (June 2020)
+  ├─→ Codex (code training) ─────────────┐
+  ├─→ WebGPT (tool use + early RLHF) ────┤ (influences but not direct path)
+  └─→ InstructGPT (RLHF methodology) ────┼─→ Combine code + RLHF
+                                          │
+                                          ↓
+                                   GPT-3.5 series
+                                   (text-davinci-003)
+                                          ↓
+                                      ChatGPT
+```
+
+**Key insight**: ChatGPT isn't just "GPT-3 with RLHF" - it's GPT-3 trained on code (via Codex) THEN aligned with RLHF (via InstructGPT methodology) THEN optimized for conversation.
+
+---
+
+## Related Documents
+
+- [[llm/models/gpt3/architecture|GPT-3 Architecture]] - The base model
+- [[llm/models/gpt3/training|GPT-3 Training]] - Original training approach
+- [[llm/models/gpt3/backstories|GPT-3 Backstories]] - Context and controversies
+- [[llm/industry-timeline|LLM Industry Timeline]] - Broader market context
