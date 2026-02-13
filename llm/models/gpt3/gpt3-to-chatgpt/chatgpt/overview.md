@@ -72,5 +72,6 @@ OpenAI probably distilled a smaller model (~20B dense, or a sparse MoE with ~20B
 - [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/system-prompt|System Prompt]]
 - [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/product-and-launch|Product & Launch]]
 - [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/safety|Safety]]
+- [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/backstories|Backstories]]
 
 **Announcement**: ["Introducing ChatGPT"](https://openai.com/index/chatgpt/) (OpenAI blog, November 30, 2022)

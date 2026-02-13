@@ -48,17 +48,9 @@ The models we now call "GPT-3.5" shipped to the API months before getting that n
 
 TechCrunch described GPT-3.5 as "a previously-unannounced, improved version of GPT-3" --- the name was new even though the models weren't. This was almost certainly a marketing decision for ChatGPT's launch: it signaled improvement over GPT-3, created a clear product narrative, and implicitly set up anticipation for GPT-4.
 
-## OpenAI Almost Shelved ChatGPT
+## ChatGPT Backstories
 
-Perhaps the most remarkable backstory. Greg Brockman told Forbes: "None of us were that enamored by it. None of us were like, 'This is really useful.'" The company had decided to shelve the chatbot to concentrate on domain-focused alternatives.
-
-In November 2022, after those alternatives failed to catch on internally --- and as tools like Stable Diffusion were causing the broader AI ecosystem to explode --- OpenAI reversed course and shipped it.
-
-Sam Altman's launch tweet was deliberately understated: "today we launched ChatGPT. try talking with it here." He described it as "an early demo of what's possible" and "very much a research release." Five days later, it had crossed one million users.
-
-Jan Leike, then leader of OpenAI's alignment team, later said: "I would love to understand better what's driving all of this --- what's driving the virality. Like, honestly, we don't understand. We don't know."
-
-The most impactful AI product in history was nearly shelved, launched with minimal expectations, and its viral success surprised even its creators.
+The ChatGPT-specific backstories (nearly shelved, the 10-day sprint, the naming, the viral surprise, the Altman firing, competitor reactions, and more) have been moved to their own document: [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/backstories|ChatGPT Backstories]].
 
 ---
 
