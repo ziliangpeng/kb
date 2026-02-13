@@ -124,7 +124,7 @@ The product itself is a thin wrapper — a web chat interface that concatenates 
 - Launched the modern chatbot era
 - The product innovation was the chat interface making LLMs accessible to non-technical users — the underlying technology had been available via API for months
 
-**See**: [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt|ChatGPT documentation]]
+**See**: [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/overview|ChatGPT documentation]]
 
 ---
 

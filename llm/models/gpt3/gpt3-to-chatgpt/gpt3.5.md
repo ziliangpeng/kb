@@ -17,17 +17,52 @@ No technical paper was published for the GPT-3.5 series. What we know comes from
 ```
 GPT-3 davinci (175B, text only, June 2020)
     │
-    ├──→ Codex / code-davinci-001 (fine-tuned on code, July 2021)
+    ├──→ Codex / code-davinci-001 (175B, fine-tuned on code, July 2021)
     │
-    └──→ code-davinci-002 (pre-trained on text + code, March 2022)
+    └──→ code-davinci-002 (175B, pre-trained on text + code, March 2022)
              │           [GPT-3.5 BASE]
              │
-             ├──→ text-davinci-002 (FeedME: SFT only, March 2022)
+             ├──→ text-davinci-002 (175B, FeedME: SFT only, March 2022)
              │
-             ├──→ text-davinci-003 (full RLHF, November 28, 2022)
+             ├──→ text-davinci-003 (175B, full RLHF, November 28, 2022)
              │
-             └──→ ChatGPT / gpt-3.5-turbo (RLHF + dialogue, November 30, 2022)
+             └──→ ChatGPT / gpt-3.5-turbo (likely ~20B distilled, RLHF + dialogue)
+                      ChatGPT web: November 30, 2022
+                      gpt-3.5-turbo API: March 1, 2023
 ```
+
+Note: All davinci-class models share the 175B architecture. gpt-3.5-turbo is likely a much smaller distilled model --- see [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/overview#Model Identity and Size|ChatGPT: Model Identity and Size]] for evidence.
+
+## Model Sizes Across the GPT-3 Family
+
+OpenAI never officially disclosed parameter counts for API models. The estimates below come from the GPT-3 paper, the Codex paper, the InstructGPT paper, and EleutherAI's benchmark-matching analysis.
+
+### GPT-3 Base Models
+
+| API Name | Parameters | Source |
+|---|---|---|
+| ada | ~350M | EleutherAI benchmark matching |
+| babbage | ~1.3B | EleutherAI benchmark matching |
+| curie | ~6.7B | EleutherAI benchmark matching |
+| davinci | ~175B | EleutherAI benchmark matching |
+
+Names are alphabetical by size, named after scientists: Ada Lovelace, Charles Babbage, Marie Curie, Leonardo da Vinci. The GPT-3 paper trained 8 sizes (125M, 350M, 760M, 1.3B, 2.7B, 6.7B, 13B, 175B); the four API models correspond to 350M, 1.3B, 6.7B, and 175B.
+
+### Codex and GPT-3.5 Models
+
+| Model | Parameters | Confidence | Notes |
+|---|---|---|---|
+| code-cushman-001 | ~12B | High | Codex paper states "up to 12B" |
+| code-davinci-001 | ~175B | Medium-High | Fine-tuned davinci on code |
+| code-davinci-002 | ~175B | Medium-High | GPT-3.5 base model |
+| text-davinci-001 | 175B | High | InstructGPT 175B deployed to API |
+| text-davinci-002 | 175B | High | FeedME fine-tune of code-davinci-002 |
+| text-davinci-003 | 175B | High | RLHF/PPO on text-davinci-002 |
+| gpt-3.5-turbo | ~20B (estimated) | Medium | Indirect evidence; see [[llm/models/gpt3/gpt3-to-chatgpt/chatgpt/overview#Model Identity and Size\|ChatGPT model identity]] |
+
+"Cushman" fits the alphabetical naming convention (between C and D), at ~12B. All davinci-class models are 175B. gpt-3.5-turbo is the outlier --- likely a distilled smaller model.
+
+**Sources**: [EleutherAI: On the Sizes of OpenAI API Models](https://blog.eleuther.ai/gpt3-model-sizes/), [Codex paper](https://arxiv.org/abs/2107.03374), [InstructGPT paper](https://arxiv.org/abs/2203.02155), [GPT-3 paper](https://arxiv.org/abs/2005.14165)
 
 ## Code Training Improves Reasoning
 
