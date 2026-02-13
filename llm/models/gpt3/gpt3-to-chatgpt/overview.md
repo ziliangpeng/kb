@@ -48,7 +48,7 @@ Neither tool use nor RLHF originated here — RLHF was established by Christiano
 
 ### 4. **InstructGPT** - January 2022
 
-The breakthrough that made ChatGPT possible. Introduced the three-stage RLHF (Reinforcement Learning from Human Feedback) pipeline: Supervised Fine-Tuning → Reward Model → PPO optimization.
+GPT-3 is trained to predict the next token on internet text, but users want it to follow instructions — these are different objectives. Scaling alone doesn't fix this; the paper's key claim is "making language models bigger does not inherently make them better at following a user's intent." InstructGPT applies RLHF to align GPT-3 with user intent across all instructions, not just narrow tasks like summarization or web browsing. The breakthrough that made ChatGPT possible, using the three-stage RLHF pipeline: Supervised Fine-Tuning → Reward Model → PPO optimization.
 
 **Paper**: ["Training language models to follow instructions with human feedback"](https://arxiv.org/abs/2203.02155) (Ouyang et al., March 2022)
 
