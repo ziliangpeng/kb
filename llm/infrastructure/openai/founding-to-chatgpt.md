@@ -48,6 +48,8 @@ OpenAI's largest compute project before GPT-3:
 
 Source: [OpenAI Five blog post](https://openai.com/index/openai-five/)
 
+**Rapid** had a two-layer architecture: (1) a layer that spins up thousands of machines and handles inter-machine communication, and (2) a layer that runs the training software. Rollout workers ran game copies on CPUs, experience was synced through Redis, and optimizer nodes performed synchronous gradient descent on GPUs. It had backends for Kubernetes, Azure, and GCP. Rapid demonstrated OpenAI's infrastructure ambitions before LLMs became the focus --- it's unclear whether it evolved into or was replaced by whatever system runs LLM pre-training today.
+
 ### Scaling Kubernetes to 2,500 Nodes (January 2018)
 
 OpenAI published a blog post detailing pushing Kubernetes to **2,500+ nodes** on Azure (D15v2 and NC24 VMs). Major challenges:
@@ -99,6 +101,18 @@ This gave OpenAI access to massive compute while giving Microsoft an exclusive r
 
 Source: [Microsoft announcement (July 2019)](https://news.microsoft.com/source/2019/07/22/openai-forms-exclusive-computing-partnership-with-microsoft-to-build-new-azure-ai-supercomputing-technologies/)
 
+### The PyTorch Switch (January 2020)
+
+On **January 30, 2020**, OpenAI announced standardization on PyTorch. The stated reason: it "decreased iteration time on research ideas in generative modeling from **weeks to days**."
+
+The timing was not coincidental. While on Google Cloud TPUs (2018-2019), TensorFlow had a practical advantage --- Google built both TensorFlow and TPUs, and TPU support in PyTorch was immature. The Microsoft deal (July 2019) moved OpenAI to NVIDIA GPUs on Azure, where PyTorch and TensorFlow performed equally well. The deal didn't directly cause the switch, but it **removed the TPU lock-in** that had made TensorFlow the practical choice. With that barrier gone, OpenAI could switch to the framework their researchers preferred.
+
+The timing has a striking implication: GPT-2 (February 2019) was the last major TensorFlow model, and GPT-3 (June 2020) was the first major PyTorch model. This means **GPT-3's training infrastructure was built from scratch in PyTorch in roughly 5 months** (January-May 2020).
+
+At the time of the announcement, OpenAI was already writing PyTorch bindings for their custom **blocksparse** GPU kernels (efficient block-sparse matrix multiplication), and Philippe Tillet was building `torch-blocksparse` --- early work that would eventually lead to the Triton compiler.
+
+Source: [OpenAI Standardizes on PyTorch](https://openai.com/index/openai-pytorch/) (January 2020)
+
 ---
 
 ## 3. The First Microsoft Supercomputer: GPT-3 Era (2020)
@@ -136,6 +150,8 @@ Source: [Microsoft announcement (May 2020)](https://news.microsoft.com/source/fe
 
 The phrase "part of" the cluster is notable --- the rest was likely used for other experiments, inference, and smaller model variants.
 
+The distributed training infrastructure was built entirely in-house. **Jeffrey Wu** implemented the model-parallel strategies for GPT-3, with **Mark Chen** and **Rewon Child** prototyping an early version. Notably, **OpenAI never used Microsoft's DeepSpeed** framework despite the partnership --- OpenAI had deep in-house infrastructure expertise going back to their Kubernetes cluster management, custom CUDA kernels (blocksparse), and the Rapid platform. Microsoft provided the hardware; OpenAI provided the software.
+
 Source: [GPT-3 paper (arXiv:2005.14165)](https://arxiv.org/abs/2005.14165), [Lambda blog cost analysis](https://lambda.ai/blog/demystifying-gpt-3)
 
 ---
@@ -149,6 +165,10 @@ OpenAI published a follow-up blog post describing scaling from 2,500 to **7,500 
 - etcd heap usage reached **70GB per API server** (5 API servers, 5 etcd nodes)
 - Flannel networking couldn't scale --- switched to **native Azure VMSS pod networking** with CNI plugins for host-level network throughput
 - Prometheus TSDB couldn't handle the metrics volume
+- Training jobs ran **MPI** --- all pods within a job participated in a single MPI communicator, communicating via pod IP addresses over SSH
+- **Gang scheduling**: all StatefulSet members had to be scheduled before training could begin (MPI is sensitive to group membership changes)
+- If **any pod died, the entire job halted** and restarted from the last checkpoint saved to **blob storage**
+- OpenAI built a custom library of **GPU health checks** beyond NVIDIA's DCGM to catch problems not visible through standard error codes, run during instance creation and periodically via Kubernetes CronJobs
 
 This cluster supported GPT-3, CLIP, and DALL-E.
 
@@ -304,6 +324,9 @@ OpenAI has not open-sourced or publicly documented their core distributed traini
 | **Jakub Pachocki** | Chief Scientist (2024-), formerly Research Director | Led GPT-4 pretraining. Built "much of the infrastructure that enabled OpenAI's scientific discoveries." |
 | **Philippe Tillet** | Triton compiler lead | Created the Triton GPU programming language. PhD from Harvard on GPU compilers. |
 | **Ilya Sutskever** | Co-founder, Chief Scientist (2015-2024) | Drove the scaling vision. Departed May 2024 for Safe Superintelligence Inc. |
+| **Jeffrey Wu** | Research/Infrastructure | Implemented model-parallel strategies for GPT-3. Co-author of GPT-2 and GPT-3 papers. Now at Anthropic. |
+| **Mark Chen** | Research | Co-developed early model-parallel strategy with Rewon Child. Later SVP of Research, then Chief Research Officer. |
+| **Rewon Child** | Research | Co-developed early model-parallel strategy. Co-author of GPT-2. Author of "Generating Long Sequences with Sparse Transformers." Later co-founded Inflection. |
 | **Jared Kaplan** | Research | Published foundational scaling laws paper. Later co-founded Anthropic. |
 
 ---
