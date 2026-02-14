@@ -4,28 +4,30 @@ This document catalogs dedicated AI training facilities globally — data center
 
 ## Master Table
 
-| Facility | Owner | Location | Power | GPUs/Chips | Status | Year |
-|----------|-------|----------|-------|------------|--------|------|
-| Hyperion | Meta | Louisiana, USA | 5 GW | ~750K+ GPUs | Under construction | 2028 |
-| Stargate UAE | G42/OpenAI | Abu Dhabi, UAE | 5 GW | TBD | Under construction | 2026+ |
-| Project Rainier | AWS/Anthropic | Indiana, USA | 2.2 GW | 500K-1M Trainium2 | Operational | 2025 |
-| Colossus | xAI | Memphis, TN, USA | 2 GW | 555K GPUs | Operational | 2024 |
-| Azure Superfactory | Microsoft | Multiple, USA | 2 GW | 100K+ GPUs | Operational | 2025 |
-| Columbus Cluster | Google | Ohio, USA | 1+ GW | Millions of TPUs | Operational | 2025 |
-| Stargate Abilene | OpenAI/Oracle | Texas, USA | 1.2 GW | 450K GB200 | Operational | 2025 |
-| Council Bluffs | Google | Iowa, USA | 1+ GW | Millions of TPUs | Operational | 2025 |
-| Stargate Ohio | SoftBank | Lordstown, OH, USA | TBD | TBD | Under construction | 2026 |
-| Stargate Wisconsin | Oracle/Vantage | Wisconsin, USA | TBD | TBD | Under construction | 2026 |
-| Stargate New Mexico | Oracle | Dona Ana County, NM, USA | TBD | TBD | Under construction | 2026 |
-| Stargate Norway | OpenAI | Narvik, Norway | 230 MW | 100K GPUs | Announced | 2026 |
-| SoftBank Hokkaido | SoftBank | Tomakomai, Japan | 300+ MW | 4K+ Blackwell | Under construction | 2026 |
-| SoftBank Osaka | SoftBank | Osaka, Japan | 150-400 MW | TBD | Under construction | 2026 |
-| CoreWeave Kansas City | CoreWeave | Missouri, USA | 100 MW | 10K+ Blackwell Ultra | Under construction | 2026 |
-| CoreWeave Oklahoma | CoreWeave | Muskogee, OK, USA | 100 MW | TBD | Under construction | 2026 |
-| Nebius Finland | Nebius | Mantsala, Finland | 75 MW | H100/H200/Blackwell | Operational | 2025 |
-| Lambda LA | Lambda Labs | Los Angeles, CA, USA | 3 GW | 1M+ target | Announced | TBD |
-| Saudi AI Factory | Humain/NVIDIA | Saudi Arabia | 1.9 GW (2030) | 5K+ Blackwell | Announced | 2030 |
-| DeepSeek Hainan | DeepSeek | Lingshui, Hainan, China | TBD | 2K+ H800 | Operational | 2024 |
+"Max (from power)" column = theoretical GPU capacity calculated from power using PUE 1.2 and ~1.78 kW/GPU for Blackwell-class, ~1.28 kW/GPU for H100-class. See [[ai/data-center/power-consumption]] for methodology.
+
+| Facility | Owner | Location | Power | Reported GPUs | Max (from power) | Status | Year |
+|----------|-------|----------|-------|---------------|------------------|--------|------|
+| Hyperion | Meta | Louisiana, USA | 5 GW | ~750K+ | ~2.3M | Under construction | 2028 |
+| Stargate UAE | G42/OpenAI | Abu Dhabi, UAE | 5 GW | TBD | ~2.3M | Under construction | 2026+ |
+| Project Rainier | AWS/Anthropic | Indiana, USA | 2.2 GW | 500K-1M Trainium2 | ~1.4M | Operational | 2025 |
+| Colossus | xAI | Memphis, TN, USA | 2 GW | 555K | ~1.3M | Operational | 2024 |
+| Azure Superfactory | Microsoft | Multiple, USA | 2 GW | 100K+ | ~1.3M | Operational | 2025 |
+| Columbus Cluster | Google | Ohio, USA | 1+ GW | Millions of TPUs | — | Operational | 2025 |
+| Stargate Abilene | OpenAI/Oracle | Texas, USA | 1.2 GW | 450K GB200 | ~560K | Operational | 2025 |
+| Council Bluffs | Google | Iowa, USA | 1+ GW | Millions of TPUs | — | Operational | 2025 |
+| Stargate Ohio | SoftBank | Lordstown, OH, USA | TBD | TBD | — | Under construction | 2026 |
+| Stargate Wisconsin | Oracle/Vantage | Wisconsin, USA | TBD | TBD | — | Under construction | 2026 |
+| Stargate New Mexico | Oracle | Dona Ana County, NM, USA | TBD | TBD | — | Under construction | 2026 |
+| Stargate Norway | OpenAI | Narvik, Norway | 230 MW | 100K | ~108K | Announced | 2026 |
+| SoftBank Hokkaido | SoftBank | Tomakomai, Japan | 300+ MW | 4K+ Blackwell | ~140K | Under construction | 2026 |
+| SoftBank Osaka | SoftBank | Osaka, Japan | 150-400 MW | TBD | ~187K | Under construction | 2026 |
+| CoreWeave Kansas City | CoreWeave | Missouri, USA | 100 MW | 10K+ Blackwell Ultra | ~47K | Under construction | 2026 |
+| CoreWeave Oklahoma | CoreWeave | Muskogee, OK, USA | 100 MW | TBD | ~47K | Under construction | 2026 |
+| Nebius Finland | Nebius | Mantsala, Finland | 75 MW | H100/H200/Blackwell | ~49K | Operational | 2025 |
+| Lambda LA | Lambda Labs | Los Angeles, CA, USA | 3 GW | 1M+ target | ~1.4M | Announced | TBD |
+| Saudi AI Factory | Humain/NVIDIA | Saudi Arabia | 1.9 GW (2030) | 5K+ Blackwell | ~890K | Announced | 2030 |
+| DeepSeek Hainan | DeepSeek | Lingshui, Hainan, China | TBD | 2K+ H800 | — | Operational | 2024 |
 
 ---
 
