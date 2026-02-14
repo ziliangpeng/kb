@@ -1,12 +1,14 @@
 # Data Center Scaling Bottlenecks
 
-The practical upper limit for a single data center site (as of 2025) is approximately **1-2 GW of power capacity**, supporting hundreds of thousands to over a million GPUs. However, this is the upper bound — most datacenters are much smaller:
+The practical upper limit for a single data center site (as of 2025) is approximately **1-2 GW of power capacity**, supporting hundreds of thousands of GPUs. However, this is the upper bound — most datacenters are much smaller:
 
-| Category | Power | Approximate GPUs |
-|----------|-------|------------------|
-| Traditional hyperscale | 10-100 MW | 10K-100K |
-| New AI-focused facilities | 100-300 MW | 100K-300K |
-| Mega-scale (exceptional) | 1+ GW | 500K-1M+ |
+| Category | Power | Approximate GPUs (H100) | Approximate GPUs (Blackwell) |
+|----------|-------|-------------------------|------------------------------|
+| Traditional hyperscale | 10-100 MW | 6K-65K | 5K-47K |
+| New AI-focused facilities | 100-300 MW | 65K-195K | 47K-140K |
+| Mega-scale (exceptional) | 1+ GW | 650K+ | 470K+ |
+
+GPU counts assume PUE of 1.2 and include full server overhead (CPUs, memory, networking). Newer GPUs use more power per chip, so the same datacenter fits fewer of them. See [[ai/data-center/power-consumption|Power Consumption]] for detailed breakdown.
 
 The 1 GW+ mega-datacenters (xAI Colossus, Stargate, Microsoft Fairwater) are exceptional projects that take years to build. Most available AI compute today is in smaller 100-300 MW facilities.
 
@@ -15,6 +17,8 @@ The 1 GW+ mega-datacenters (xAI Colossus, Stargate, Microsoft Fairwater) are exc
 ### 1. Power / Grid Access (Most Severe)
 
 **Why it's a bottleneck:** You can't just "add" hundreds of megawatts of demand to a location. The power has to come from somewhere — new generation (power plants), new transmission lines, or existing spare capacity. Building this infrastructure takes years.
+
+See [[ai/data-center/power-consumption|Power Consumption]] for detailed breakdown of how power adds up from GPUs to servers to data centers.
 
 **The grid interconnection process:**
 
