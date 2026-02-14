@@ -6,14 +6,14 @@ OpenAI is unusually secretive about infrastructure. The GPT-4 technical report e
 
 ## The Stack Progression
 
-| Era | Framework | Hardware | Cloud |
-|-----|-----------|----------|-------|
-| 2016-2017 | TensorFlow | GPUs | AWS → Azure (migrated early 2017) |
-| 2018-2019 | TensorFlow | Google Cloud TPUs | Google Cloud (GPT-1, GPT-2) |
-| 2020 | Switched to PyTorch | NVIDIA V100s | Microsoft Azure |
-| 2020-2022 | Custom PyTorch stack | 10,000 V100s → A100s | Microsoft Azure (dedicated supercomputer) |
-| 2023-2024 | Custom PyTorch stack | ~25,000 A100s → H100s | Microsoft Azure |
-| 2025+ | Custom PyTorch stack | 100,000+ GPUs, multi-cluster | Microsoft Azure, multi-datacenter |
+| Era       | Framework            | Hardware                     | Cloud                                     |
+| --------- | -------------------- | ---------------------------- | ----------------------------------------- |
+| 2016-2017 | TensorFlow           | GPUs                         | AWS → Azure (migrated early 2017)         |
+| 2018-2019 | TensorFlow           | Google Cloud TPUs            | Google Cloud (GPT-1, GPT-2)               |
+| 2020      | Switched to PyTorch  | NVIDIA V100s                 | Microsoft Azure                           |
+| 2020-2022 | Custom PyTorch stack | 10,000 V100s → A100s         | Microsoft Azure (dedicated supercomputer) |
+| 2023-2024 | Custom PyTorch stack | ~25,000 A100s → H100s        | Microsoft Azure                           |
+| 2025+     | Custom PyTorch stack | 100,000+ GPUs, multi-cluster | Microsoft Azure, multi-datacenter         |
 
 ## Phase 1: TensorFlow and Google Cloud (2016-2019)
 
