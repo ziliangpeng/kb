@@ -34,7 +34,7 @@ The GPT-3.5 training was the first large-scale run on fundamentally new infrastr
 
 Without the GPT-3.5 test run, GPT-4's training could have been catastrophically unstable. At ~$63M in hardware cost alone (per leaked estimates) and 90-100 days of training, a failed run due to undiscovered infrastructure bugs would have been enormously expensive. GPT-3.5 de-risked this by validating every layer of the new stack --- hardware, networking, distributed training, checkpointing, and scaling predictions --- at a smaller scale first.
 
-For the full infrastructure story, see: [[llm/infrastructure/openai/founding-to-chatgpt|OpenAI Infrastructure: Founding to ChatGPT]]
+For the full infrastructure story, see: [[llm/labs/openai/infrastructure/founding-to-chatgpt|OpenAI Infrastructure: Founding to ChatGPT]]
 
 ## FeedME Shipped Because RLHF Was Too Finicky
 
