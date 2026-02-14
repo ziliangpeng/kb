@@ -154,6 +154,27 @@ OpenAI has never publicly named or detailed their LLM training framework. What i
 - **Checkpointing to blob storage** for fault tolerance
 - **Azure** as the primary cloud provider (with Microsoft-built dedicated supercomputers)
 
+### Triton Post-2023 Developments
+
+Triton (OpenAI's open-source GPU programming language) has continued evolving rapidly. See [[llm/training-frameworks/backstories|Triton backstory]] for origin story.
+
+**Blackwell architecture support:** Triton compiler now targets NVIDIA Blackwell GPUs directly, automatically exploiting Tensor Core features for FP8/FP16 GEMM operations. This was a collaboration between OpenAI and NVIDIA — NVIDIA actively ensuring their new hardware works well with OpenAI's compiler.
+
+**New precision formats:** Support for OCP microscaling formats — **MXFP8 and MXFP4**. These matter for inference efficiency: the GB300 NVL72 cluster specs specifically advertise "1.44 exaflops of FP4."
+
+**Release cadence:** 3.3.0 (Apr 2025), 3.4.0 (Jul 2025), 3.5.0 (Oct 2025), 3.6.0 (Jan 2026) — roughly quarterly.
+
+**Ecosystem adoption:**
+
+- Meta built **Helion**, a high-level DSL that compiles down to Triton — a major competitor building on top of OpenAI's compiler
+- **3rd Triton Developer Conference** held October 21, 2025 at Microsoft Silicon Valley Campus ([playlist](https://www.youtube.com/playlist?list=PLc_vA1r0qoiQqCdWFDUDqI90oY5EjfGuO))
+- Active work on reducing kernel launch overhead for lower latency
+
+**Sources:**
+
+- [NVIDIA Blog — Triton on Blackwell](https://developer.nvidia.com/blog/openai-triton-on-nvidia-blackwell-boosts-ai-performance-and-programmability/)
+- [Triton GitHub releases](https://github.com/triton-lang/triton/releases)
+
 ### From Job Postings
 
 Job postings reveal the contours of what OpenAI builds internally:
@@ -250,6 +271,64 @@ OpenAI separates inference into two tiers:
 - **Batch API**: **50% cost discount**, up to 50K requests per file, 24-hour turnaround, separate rate limit pool (analogous to OLAP)
 
 The separation allows filling GPU idle capacity with batch jobs, improving overall utilization.
+
+## Incidents That Revealed Architecture
+
+Production outages are one of the best sources of infrastructure details, since official postmortems disclose what's actually running.
+
+### December 11, 2024 — Kubernetes Telemetry Cascading Failure
+
+A new telemetry service deployment caused every node in each cluster to execute resource-intensive Kubernetes API operations whose cost **scaled with cluster size**. Total unavailability for 4+ hours (3:16 PM – 7:38 PM PST).
+
+**Key details:**
+
+- DNS caching masked the problem during rollout — everything looked fine until caches expired and all nodes hit the new service simultaneously
+- OpenAI runs a **multi-cluster Kubernetes architecture** with separate staging and production clusters
+- The staging cluster was **too small** to reveal the scaling issue — the problem was superlinear in cluster size
+- Engineers were **locked out of the control plane** — couldn't access Kubernetes to fix it because Kubernetes itself was overloaded
+
+**Remediation:** All infrastructure config changes now follow **phased rollout** with continuous monitoring of both workloads and Kubernetes control plane health.
+
+**Source:** [OpenAI Status — Dec 11, 2024 incident](https://status.openai.com/incidents/01JMYB483C404VMPCW726E8MET)
+
+### December 26, 2024 — Power Failure
+
+A power failure in an Azure datacenter took down ChatGPT, Sora, and APIs with >90% error rates.
+
+**What it revealed:**
+
+- OpenAI's databases are **globally replicated** — data exists in multiple regions
+- But region-wide failover requires **manual intervention from the cloud provider** (Azure) — no automated cross-region failover
+- The **scale of their databases elongated mitigation time** — failing over huge databases is slow
+
+**Source:** [OpenAI Status — Dec 26, 2024 incident](https://status.openai.com/incidents/01JMYB44RFAHDFT1HWDPD0M2N5)
+
+### June 9-10, 2025 — GPU Node Networking Failure
+
+A daily scheduled OS update inadvertently restarted `systemd-networkd`, conflicting with a custom networking agent and **removing all network routes** from impacted GPU nodes. 15+ hour outage, ChatGPT errors peaked at ~35%.
+
+**What it revealed:**
+
+- GPU nodes run a **custom networking agent alongside systemd-networkd** — layered network management
+- Recovery required **full re-imaging of affected GPU nodes** — not just a restart, suggesting deep network state corruption
+- OpenAI lacked **"break-glass tooling"** to bypass normal deployment pipelines for emergency fixes
+- GPU VMs had **automatic daily OS updates** enabled (now disabled)
+
+**Remediation:** Disabled auto-updates on GPU VMs, fleet-wide VM config audit, planned disaster recovery drills.
+
+**Source:** [OpenAI Status — June 9-10, 2025 incident](https://status.openai.com/incidents/01JXCAW3K3JAE0EP56AEZ7CBG3/write-up)
+
+### What the Outages Reveal
+
+Piecing together all three incidents:
+
+1. All services orchestrated via **multi-cluster Kubernetes**
+2. GPU nodes are **Azure VMs** (not bare metal), with custom networking agents
+3. **Cosmos DB** for at least ChatGPT's data layer (from a separate January 2025 auth incident)
+4. **Globally replicated databases** but manual cross-region failover
+5. GPU node recovery requires **full re-imaging** — not simple restarts
+6. **Phased rollout** now required for all infra config changes (post-Dec 2024)
+7. **No break-glass tooling** as of mid-2025 (being built)
 
 ## The Microsoft Relationship
 
