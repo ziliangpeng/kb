@@ -15,61 +15,6 @@ OpenAI is unusually secretive about infrastructure. The GPT-4 technical report e
 | 2023-2024 | Custom PyTorch stack | ~25,000 A100s → H100s        | Microsoft Azure                           |
 | 2025+     | Custom PyTorch stack | 100,000+ GPUs, multi-cluster | Microsoft Azure, multi-datacenter         |
 
-## Phase 1: TensorFlow and Google Cloud (2016-2019)
-
-OpenAI started on AWS with Kubernetes in 2016, migrated to Azure in early 2017 for the control plane (while keeping some nodes on-premises), but trained GPT-1 and GPT-2 on **Google Cloud**.
-
-- **GPT-1** (2018): TensorFlow, 8 GPUs, trained for ~1 month
-- **GPT-2** (2019): TensorFlow 1.x, 256 Google Cloud TPU v3 cores
-
-This was before OpenAI's partnership with Microsoft. The TPU usage is notable — OpenAI was a Google Cloud customer for its most visible models. The Microsoft partnership ($1B, July 2019) changed this completely.
-
-### Rapid: The RL Training Platform
-
-OpenAI built **Rapid**, a general-purpose distributed RL training system, for the **OpenAI Five** Dota 2 project (2018-2019). Architecture: two layers — (1) spins up thousands of machines and handles inter-machine communication, (2) runs the training software. Rollout workers ran game copies on CPUs, experience was synced through Redis, and optimizer nodes performed synchronous gradient descent on GPUs. Scale: 256 P100 GPUs + 128,000 CPU cores on Google Cloud. Backends for Kubernetes, Azure, and GCP.
-
-Rapid demonstrated OpenAI's infrastructure ambitions before LLMs became the focus. It's unclear whether Rapid evolved into or was replaced by whatever system runs LLM pre-training today.
-
-## Phase 2: The PyTorch Switch (January 2020)
-
-On **January 30, 2020**, OpenAI announced standardization on PyTorch. The reason: it "decreased iteration time on research ideas in generative modeling from **weeks to days**." They had previously used multiple frameworks depending on the project.
-
-The timing matters. GPT-2 (February 2019) was the last major TensorFlow model. GPT-3 (June 2020) was the first major PyTorch model. The switch happened in between, which means **GPT-3's training infrastructure was built from scratch in PyTorch in roughly 5 months** (January–May 2020).
-
-At the time of the announcement, OpenAI was already writing PyTorch bindings for their custom **blocksparse** GPU kernels (efficient block-sparse matrix multiplication), and Philippe Tillet was building `torch-blocksparse` — early work that would lead to Triton.
-
-## Phase 3: GPT-3 and the Azure Supercomputer (2020)
-
-Microsoft built one of the **top-5 supercomputers in the world** exclusively for OpenAI:
-
-- **10,000 NVIDIA V100 GPUs**
-- **285,000 CPU cores**
-- **400 Gbps per GPU server** networking
-
-This was the first dedicated Azure AI supercomputer, built specifically for GPT-3 training. The infrastructure was custom — **Jeffrey Wu** implemented the model-parallel strategies for GPT-3, with **Mark Chen** and **Rewon Child** prototyping an early version.
-
-**OpenAI never used DeepSpeed**, despite Microsoft building it. OpenAI had deep in-house infrastructure expertise going back to their Kubernetes-based cluster management (2016-2017), custom CUDA kernels (blocksparse), and the Rapid platform. Microsoft provided the hardware; OpenAI provided the software.
-
-### Kubernetes at Scale
-
-OpenAI published a detailed blog post on **scaling Kubernetes to 7,500 nodes** (January 2021) for GPT-3, CLIP, and DALL-E training:
-
-- **5 API servers and 5 etcd nodes** to spread load; up to 70GB of heap per API server
-- Training jobs run **MPI** — all pods within a job participate in a single MPI communicator
-- If **any pod dies, the entire job halts** and restarts from the last checkpoint
-- Pods communicate via pod IP addresses with MPI over SSH, not service endpoints
-- **Gang scheduling**: all StatefulSet members must be scheduled before training begins (MPI is sensitive to group membership changes)
-- Jobs checkpoint regularly to **blob storage** and resume from the last checkpoint on restart
-- Switched from Flannel to **native pod networking** for host-level throughput on Azure VMSSes
-
-OpenAI also built a custom library of GPU tests (beyond NVIDIA's DCGM) that exercise GPUs to catch problems not visible through standard error codes. These run during instance creation and periodically via Kubernetes CronJobs.
-
-**Sources:**
-
-- [Scaling Kubernetes to 7,500 Nodes](https://openai.com/index/scaling-kubernetes-to-7500-nodes/) (OpenAI, Jan 2021)
-- [Scaling Kubernetes to 2,500 Nodes](https://openai.com/index/scaling-kubernetes-to-2500-nodes/) (OpenAI, 2018)
-- [Infrastructure for Deep Learning](https://openai.com/index/infrastructure-for-deep-learning/) (OpenAI, 2017)
-
 ## Phase 4: GPT-4 and the Predictable Scaling Breakthrough (2023)
 
 The GPT-4 technical report revealed one infrastructure achievement: **predictable scaling**. OpenAI could predict GPT-4's final loss from models trained with 1,000x–10,000x less compute, using the power law `L(C) = aC^b + c`. This meant they could validate expensive architectural and training decisions cheaply — a critical capability when a single training run costs tens of millions of dollars.
