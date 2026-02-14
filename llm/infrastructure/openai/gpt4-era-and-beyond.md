@@ -1,6 +1,6 @@
-# OpenAI's Training Infrastructure
+# OpenAI's Infrastructure
 
-The evolution of OpenAI's internal training stack — from TensorFlow on Google's TPUs to a custom PyTorch-based framework on 100,000+ GPU clusters across Microsoft Azure.
+The evolution of OpenAI's internal training and inference stack — from TensorFlow on Google's TPUs to a custom PyTorch-based framework on 100,000+ GPU clusters across Microsoft Azure, serving 2.5 billion prompts per day.
 
 OpenAI is unusually secretive about infrastructure. The GPT-4 technical report explicitly states: "this report contains no further details about the architecture (including model size), hardware, training compute, dataset construction, training method, or similar." Most of what's known comes from blog posts, the GPT-4 contributions page, job postings, one remarkably candid YouTube video, and one leak.
 
@@ -14,6 +14,7 @@ OpenAI is unusually secretive about infrastructure. The GPT-4 technical report e
 | 2020-2022 | Custom PyTorch stack | 10,000 V100s → A100s         | Microsoft Azure (dedicated supercomputer) |
 | 2023-2024 | Custom PyTorch stack | ~25,000 A100s → H100s        | Microsoft Azure                           |
 | 2025+     | Custom PyTorch stack | 100,000+ GPUs, multi-cluster | Microsoft Azure, multi-datacenter         |
+| 2025+     | Custom PyTorch stack | GB300 NVL72 (Blackwell Ultra) | Microsoft Azure (first production cluster) |
 
 ## Phase 4: GPT-4 and the Predictable Scaling Breakthrough (2023)
 
@@ -86,7 +87,57 @@ The team conducted a dedicated large de-risking run **6–9 months** before the 
 - Alex Paino stated that retraining GPT-4 could now be accomplished with just **5–10 people**, compared to the hundreds needed originally — reflecting accumulated infrastructure maturity
 - On the future of 10 million GPU synchronous training runs: it would need to be "semi-synchronous" due to "laws of nature" preventing full synchrony at that scale — "more decentralized with 10 million GPUs working together but not all necessarily communicating with each other"
 
-**Source:** ["Pre-Training GPT-4.5"](https://www.youtube.com/watch?v=6nJZopacruq) (OpenAI YouTube channel)
+### Cluster Networking at 100K Scale
+
+Scaling to 100,000 GPUs exposed fundamental networking limitations:
+
+**InfiniBand vs Ethernet radix problem:**
+
+- InfiniBand NDR Quantum-2 switches have only **64 ports at 400G**, while NVIDIA Spectrum-X Ethernet switches have **128 ports at 400G** — double the radix
+- With a 3-tier fat tree topology, InfiniBand maxes out at **65,536 GPUs** fully connected
+- Beyond that requires a 4-tier IB network with **7:1 oversubscription** — 4 pods of ~24,576 GPUs each, where cross-pod bandwidth is 1/7th of within-pod
+- At least one 100K H100 cluster was deployed with **Spectrum-X Ethernet** instead of InfiniBand — a notable departure from HPC tradition
+
+**Dual-network architecture:**
+
+- **Backend network**: GPU-to-GPU communication (all-reduce, all-gather during training)
+- **Frontend network**: Data loading from storage + checkpointing to blob storage
+- Separation prevents checkpoint writes from interfering with gradient synchronization
+
+**Server-level networking:**
+
+- Microsoft/OpenAI use a **Cedar Fever-7 networking module** per server instead of 8 individual PCIe ConnectX-7 cards, consolidating into 4 OSFP cages instead of 8
+
+**Sources:**
+
+- ["Pre-Training GPT-4.5"](https://www.youtube.com/watch?v=6nJZopacruq) (OpenAI YouTube channel)
+- ["100,000 H100 Clusters: Power, Network, Reliability"](https://newsletter.semianalysis.com/p/100000-h100-clusters-power-network) (SemiAnalysis)
+
+## Phase 6: GPT-5 and the Blackwell Era (2025+)
+
+GPT-5 marked a strategic shift: Epoch AI estimates it used roughly **10x less pre-training compute than GPT-4.5** (~50,000 H100s maximum), because OpenAI found that scaling **post-training** (reinforcement learning, RLHF, chain-of-thought training) had better marginal returns than scaling pre-training further. This is a significant departure from the "just make pre-training bigger" paradigm.
+
+Meanwhile, the underlying hardware generation leaped forward with NVIDIA's Blackwell architecture.
+
+### GB300 NVL72 Cluster (Late 2025)
+
+Microsoft Azure deployed the **world's first production NVIDIA GB300 NVL72 supercomputing cluster**, purpose-built for OpenAI:
+
+- ~64 racks, **over 4,600 Blackwell Ultra GPUs**
+- Each rack: **72 Blackwell Ultra GPUs + 36 Grace CPUs**
+- **37 TB of fast memory** and **1.44 exaflops of FP4** per VM
+- **Within-rack networking**: NVLink at **130 TB/s** all-to-all bandwidth between 72 GPUs — effectively treating an entire rack as one giant GPU for communication
+- **Between-rack networking**: NVIDIA Quantum-X800 InfiniBand at **800 Gb/s per GPU**, with ConnectX-8 SuperNICs
+- **Cooling**: AI-designed microfluidics cooling system developed with Corintis — liquid cooling at the chip level
+- **Performance**: Up to **5x higher throughput per GPU** vs Hopper on DeepSeek-R1 671B
+
+The NVL72 design is a fundamental shift: previously NVLink only connected 8 GPUs within a single server. Now 72 GPUs in an entire rack share ultra-high-bandwidth interconnect, allowing tensor parallelism to span a full rack instead of just one node.
+
+**Sources:**
+
+- [NVIDIA Blog — Azure GB300 NVL72](https://blogs.nvidia.com/blog/microsoft-azure-worlds-first-gb300-nvl72-supercomputing-cluster-openai/) (Q4 2025)
+- [Azure Blog](https://azure.microsoft.com/en-us/blog/microsoft-azure-delivers-the-first-large-scale-cluster-with-nvidia-gb300-nvl72-for-openai-workloads/) (Q4 2025)
+- [Epoch AI — Why GPT-5 used less training compute than GPT-4.5](https://epoch.ai/gradient-updates/why-gpt5-used-less-training-compute-than-gpt45-but-gpt6-probably-wont)
 
 ## What the Stack Looks Like Today
 
@@ -123,6 +174,83 @@ Required skills across postings: Python, C++, CUDA, familiarity with NCCL/MPI/UC
 - Whether "Rapid" is still in use or has been replaced
 - Internal distributed systems "tricks" for fault tolerance (SemiAnalysis notes this is deliberately kept secret)
 
+## Compute Spending (2024)
+
+> [!note] External analysis by Epoch AI, not confirmed by OpenAI. Based on OpenAI's financials and public information.
+
+OpenAI spent roughly **$7 billion** on compute in 2024:
+
+| Category | Amount | % of Total |
+|----------|--------|-----------|
+| Experiments & research | ~$4.5B | ~65% |
+| Inference (serving ChatGPT, API) | ~$1.8B | ~26% |
+| GPT-4.5 final training run | ~$400M | ~6% |
+| Other model final training runs | ~$80M | ~1% |
+
+**Over 70% of compute went to experiments** — not final training runs of released models. The GPT-4.5 final run cost ~$400M, but the experimentation that led up to it (de-risking runs, hyperparameter sweeps, architecture exploration, failed attempts) cost more than 10x that.
+
+Training compute estimates for specific models:
+
+| Model | Estimated FLOP range |
+|-------|---------------------|
+| GPT-4o | 1e25 – 5e25 |
+| GPT-4o mini | 1e24 – 1e25 |
+| Sora Turbo | 1e24 – 1e26 |
+| o-series (o1, o3) post-training | 1–30% of base model pre-training |
+
+**Source:** [Epoch AI — OpenAI Compute Spend](https://epoch.ai/data-insights/openai-compute-spend) (2025)
+
+## Inference Infrastructure
+
+### Scale of Operations (Mid-2025)
+
+- **2.5 billion prompts per day** (330M from US users)
+- **500+ million weekly active users** for ChatGPT
+- Azure processed **100+ trillion tokens in Q1 2025** — 5x year-over-year, with **50 trillion tokens in a single month**
+
+### Multi-Cloud Strategy
+
+OpenAI was Azure-exclusive until January 2025, when the Stargate restructuring changed Microsoft's role to **right of first refusal**. Since then, OpenAI has diversified aggressively:
+
+| Provider | Deal Size | Purpose | Date |
+|----------|-----------|---------|------|
+| Microsoft Azure | $13B+ cumulative | Training + inference (primary) | 2019–ongoing |
+| AWS | $38B | NVIDIA GPU clusters | Late 2025 |
+| Google Cloud | undisclosed | ChatGPT global expansion | June 2025 |
+| Oracle (OCI) | undisclosed | Training, dedicated datacenter | 2025 |
+
+The practical driver: at 2.5B prompts/day with reasoning models consuming up to 100x more compute per request, no single provider can supply enough GPUs.
+
+### Cerebras Inference
+
+OpenAI's first production model on non-NVIDIA hardware:
+
+- **GPT-5.3-Codex-Spark** running on Cerebras Wafer Scale Engine 3 (February 2026)
+- WSE-3: single chip the size of a dinner plate, **4 trillion transistors**, hundreds of thousands of AI cores
+- **Over 1,000 tokens/sec**, 80% reduction in per-request overhead, 50% reduction in time-to-first-token
+
+**Source:** [Cerebras Blog](https://www.cerebras.ai/blog/openai-codexspark) (Feb 2026)
+
+### Reasoning Model Compute Challenge
+
+The o1/o3 reasoning models create a fundamentally different inference problem:
+
+- They generate **orders of magnitude more tokens** internally before producing a response
+- Jensen Huang estimates **up to 100x more compute per request** than standard models
+- Industry projection: inference demand projected to **exceed training demand by 118x by 2026**
+- Analysts project inference will claim **75% of total AI compute by 2030**
+
+This is the primary driver behind OpenAI's multi-cloud and multi-hardware diversification.
+
+### Batch API
+
+OpenAI separates inference into two tiers:
+
+- **Real-time API**: low latency, higher cost (analogous to OLTP)
+- **Batch API**: **50% cost discount**, up to 50K requests per file, 24-hour turnaround, separate rate limit pool (analogous to OLAP)
+
+The separation allows filling GPU idle capacity with batch jobs, improving overall utilization.
+
 ## The Microsoft Relationship
 
 | Date | Event |
@@ -151,18 +279,40 @@ Announced **January 21, 2025** by President Trump. Stargate LLC — SoftBank has
 - **First data center**: Opened in Texas (September 23, 2025)
 - Microsoft's role shifted from exclusive cloud provider to right of first refusal
 
-### Custom Silicon: Titan
+### Fairwater Datacenter Design
 
-OpenAI is designing its own AI chip:
+Microsoft's next-generation datacenter architecture, built for AI workloads:
 
-- **Codename**: Titan
-- **Design partner**: Broadcom (ASIC design services)
-- **Manufacturer**: TSMC, 3nm process
-- **Expected deployment**: End of 2026
-- **Initial focus**: Primarily inference, with some training capability
-- **Second generation (Titan 2)**: Planned on TSMC's A16 process
+- Each campus has **two building types**: a standard CPU & storage facility (48 MW) and an ultra-dense **2-story 300 MW GPU building** housing **over 150,000 GB200 GPUs**
+- Microsoft also designed **600+ MW individual buildings** (2x Fairwater scale) with double CPU/storage and diesel generators
+- Full buildout targets **over 2 GW of IT capacity** per campus
+
+To put the scale in perspective: GPT-4.5's multi-cluster training used roughly 50–100 MW across clusters. One Fairwater campus at 2 GW is 20–40x that.
+
+**Source:** ["Microsoft's AI Strategy Deconstructed"](https://newsletter.semianalysis.com/p/microsofts-ai-strategy-deconstructed) (SemiAnalysis — based on satellite imagery and industry sources)
+
+### Custom Silicon and Hardware Partnerships
+
+OpenAI now has **six simultaneous hardware partnerships**:
+
+| Partner | Purpose | Timeline | Notes |
+|---------|---------|----------|-------|
+| NVIDIA (via Azure) | Training + inference (H100, GB200, GB300) | Current | InfiniBand networking |
+| AMD | Training + inference (MI300X → MI450 → MI500) | MI300X current; MI450 H2 2026 | Direct 6 GW deal (Oct 2025), $100B+ projected revenue, warrant for 160M AMD shares (~10% stake) |
+| Broadcom ("Titan") | Custom inference ASIC | End of 2026 | TSMC 3nm; Titan 2 planned on A16 process |
+| Cerebras | Inference (Wafer Scale Engine 3) | 2026+ | $10B deal; first non-NVIDIA production model (GPT-5.3-Codex-Spark) |
+| AMD (via Azure) | Inference (MI300X, 192 GB HBM) | Current | Through Microsoft, predates direct deal |
+| Microsoft Maia | Some first-party Copilot workloads | Current | In-house Microsoft chip |
+
+**Sources:**
+
+- [AMD and OpenAI announce strategic partnership](https://openai.com/index/openai-amd-strategic-partnership/) (OpenAI, Oct 2025)
+- [OpenAI and Broadcom announce strategic collaboration](https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/) (OpenAI)
+- [OpenAI and Cerebras partnership](https://openai.com/index/cerebras-partnership/) (OpenAI, Jan 2025)
 
 ### Multi-Datacenter Training
+
+> [!todo] Research datacenter training network topologies in depth — fat-tree, rail-optimized, InfiniBand vs Ethernet at scale, DWDM for inter-site links, DiLoCo and other semi-synchronous approaches.
 
 SemiAnalysis reported on OpenAI's multi-datacenter ambitions:
 
@@ -171,7 +321,18 @@ SemiAnalysis reported on OpenAI's multi-datacenter ambitions:
 - Plans to interconnect ultra-large campuses and run distributed training runs across the country
 - Approaching gigawatt-scale liquid-cooled datacenter campuses
 
-**Source:** ["Multi-Datacenter Training: OpenAI's Ambitious Plan To Beat Google's Infrastructure"](https://newsletter.semianalysis.com/p/multi-datacenter-training-openais) (SemiAnalysis)
+**Inter-site interconnect:** Microsoft signed deals **north of $10 billion with fiber companies** to connect datacenters for multi-site training. Uses dedicated fiber paths with **wavelength-division multiplexing (DWDM)** for terabits of aggregate inter-site bandwidth.
+
+**Synchronization approach:** The communication hierarchy means different parallelism strategies at each level:
+
+1. **Within NVL72 rack** (~130 TB/s via NVLink): tensor parallelism
+2. **Within datacenter** (400–800 Gb/s per GPU via IB/Ethernet): pipeline and data parallelism
+3. **Between datacenters** (DWDM fiber, much lower bandwidth): infrequent synchronization — likely **DiLoCo-style**, where each site performs local gradient synchronization frequently and only exchanges "pseudo-gradients" with other sites every ~500 steps, reducing inter-site data exchange by **~500x**
+
+**Sources:**
+
+- ["Multi-Datacenter Training: OpenAI's Ambitious Plan To Beat Google's Infrastructure"](https://newsletter.semianalysis.com/p/multi-datacenter-training-openais) (SemiAnalysis)
+- [Windows Central — Microsoft fiber deals](https://www.windowscentral.com/microsoft/a-researcher-claims-microsoft-and-openai-may-have-cracked-multi-datacenter-distributed-training-for-their-ai-models-based-on-their-actions-microsoft-has-signed-deals-north-of-usd10-billion-with-fiber-companies-to-connect-data-centers)
 
 ## Key People
 
