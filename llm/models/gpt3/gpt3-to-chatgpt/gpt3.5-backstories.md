@@ -18,6 +18,24 @@ OpenAI had rebuilt their "entire deep learning stack" and co-designed a supercom
 
 GPT-3.5 was the dress rehearsal.
 
+### What "Rebuilt Entire Deep Learning Stack" Means
+
+The GPT-3.5 training was the first large-scale run on fundamentally new infrastructure. The key changes from the GPT-3 era:
+
+**Hardware transition (V100 → A100):** GPT-3 was trained on NVIDIA V100 GPUs (the May 2020 Microsoft supercomputer: 10,000 V100s). By 2021-2022, Microsoft had built A100-based clusters --- the "Voyager" supercomputer debuted at #10 on the November 2021 Top500 list. The A100 was not a drop-in replacement; it brought fundamentally different memory capacity (40/80GB HBM2e vs 16/32GB on V100), new precision formats (BF16, which V100 lacked), different interconnects, and sparsity acceleration. The distributed training code had to be adapted for all of these.
+
+**New distributed training framework:** OpenAI uses a custom proprietary distributed training system (not NVIDIA's Megatron-LM or Microsoft's DeepSpeed). This framework had to be substantially rewritten or adapted for the A100 architecture. GPT-4 later used 8-way tensor parallelism + 15-way pipeline parallelism --- strategies that were likely developed and validated during GPT-3.5 training runs.
+
+**New checkpointing systems:** At GPT-4's eventual scale (~20,000-25,000 A100s), hardware failures occur every few hours. Robust checkpoint/restart systems are essential to avoid losing days of training progress. GPT-3.5 was the proving ground for these systems. (GPT-4's MFU was still only 32-36%, described as low "due to an absurd number of failures requiring checkpoints that needed to be restarted from" --- and this was *after* the bugs found in GPT-3.5 had been fixed.)
+
+**Scaling law prediction infrastructure:** OpenAI developed methods to predict a large model's final loss by extrapolating from models trained at 1/10,000th of the compute. This predictability was a core GPT-4 achievement --- "our first large model whose training performance we were able to accurately predict ahead of time." The theoretical foundations for these predictions were refined during GPT-3.5 training.
+
+### Why This Matters
+
+Without the GPT-3.5 test run, GPT-4's training could have been catastrophically unstable. At ~$63M in hardware cost alone (per leaked estimates) and 90-100 days of training, a failed run due to undiscovered infrastructure bugs would have been enormously expensive. GPT-3.5 de-risked this by validating every layer of the new stack --- hardware, networking, distributed training, checkpointing, and scaling predictions --- at a smaller scale first.
+
+For the full infrastructure story, see: [[llm/infrastructure/openai/founding-to-chatgpt|OpenAI Infrastructure: Founding to ChatGPT]]
+
 ## FeedME Shipped Because RLHF Was Too Finicky
 
 When OpenAI shipped text-davinci-002 in March 2022, it used FeedME (supervised fine-tuning) rather than full RLHF. Text-davinci-003 with full RLHF didn't ship until November 2022 --- eight months later.
