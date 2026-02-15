@@ -70,63 +70,266 @@ This document catalogs dedicated AI training facilities globally — data center
 
 ---
 
-## Meta AI Data Centers
+## Chinese Players
 
-### Hyperion (Louisiana)
-
-**Status:** Under Construction
+### DeepSeek
 
 | Attribute | Details |
 |-----------|---------|
-| **Location** | Richland Parish, Louisiana |
-| **Power Capacity** | 5 GW planned (1.5 GW Phase 1 by end of 2027) |
-| **GPU Count** | ~750,000 GPUs estimated (extrapolated from power) |
-| **Site Size** | 2,250 acres + 1,400 additional acres purchased (~3,650 acres total) |
-| **Cooling** | Liquid immersion and evaporative systems |
-| **Investment** | $27-50B total (Blue Owl Capital JV — 80% ownership) |
-| **Power Source** | Behind-the-meter generation: 400 MW (2x 200 MW sites by Q3 2026); 2.25 GW from 3 new Entergy gas plants (~$4B) |
+| **Training Infrastructure** | 256 server nodes, 2,048 GPUs (H800); R1 trained for $5.6M with 2,000 H800s |
+| **Unique Infrastructure** | Underwater data center off Lingshui, Hainan Island (400+ servers) |
+| **Backbone** | 3 intelligent computing centers in Hohhot |
+| **International** | Aramco Digital Data Center, Dammam, Saudi Arabia |
 
-**Timeline:**
-
-- Construction underway (3,700 workers, peak 5,000 by mid-2026)
-- Phase 1 expected 2028
-- Full buildout late 2027-2028
-
-**Notable:** "Would cover a significant part of Manhattan" per Zuckerberg. World's largest individual campus when complete.
-
-### Prometheus (New Albany, Ohio)
-
-**Status:** Opening 2026
+### Alibaba Cloud
 
 | Attribute | Details |
 |-----------|---------|
-| **Power Capacity** | 1 GW (world's first gigawatt-capable data center) |
-| **Design** | Five rapid deployment structures (large tent-like facilities) connected via 300-foot-wide utility corridor with 20-acre power generation yard |
+| **Investment** | $69B (480B yuan) over 3 years for AI infrastructure |
+| **Custom Chips** | Zhenwu 810E (comparable to NVIDIA H20); tens of thousands deployed |
 
-### Other Meta AI Facilities
+#### Key Facilities
 
-| Facility | Location | Power | Investment | Status |
-|----------|----------|-------|------------|--------|
-| Lebanon | Indiana | 1 GW | $10B+ | Under construction (2027) |
-| Temple | Texas | — | $800M+ | Under construction |
-| Kuna | Idaho | 200 MW | ~$1B | Completing 2025 |
+| Facility | Location | Capacity |
+|----------|----------|----------|
+| Zhangbei Super Intelligent Computing Center | Hebei Province | 12 EFLOPS |
+| Ulanqab Data Center | Inner Mongolia | 3 EFLOPS |
+| Hangzhou Data Center | Zhejiang Province | Hyperscale |
+| Nantong Data Center | Jiangsu Province | Hyperscale |
 
-### Research SuperCluster (RSC)
+**Global Expansion (2025-2026):** Brazil, France, Netherlands, Mexico, Japan, South Korea, Malaysia, Dubai
+
+### Tencent
+
+| Attribute | Details |
+|-----------|---------|
+| **Network** | Xingmai 2.0: supports 100,000+ GPUs in single cluster |
+| **Custom Chips** | Zixiao AI chip (internal use, 2x competitor performance) |
+| **CapEx Trend** | Declining due to GPU access constraints |
+
+#### Key Facilities
+
+| Facility | Location | Notes |
+|----------|----------|-------|
+| Guizhou Cave Data Center | Gui'an New Area | 30,000 sqm tunneled into hillside, bomb-shelter design |
+| Tianjin Data Center | Tianjin | 10.54 MW microgrid, serves QQ/WeChat for northern China |
+
+### ByteDance
+
+| Attribute | Details |
+|-----------|---------|
+| **2026 CapEx** | $23B (160B yuan) |
+| **NVIDIA Investment** | $14B for chips, $7B for overseas GPU leasing |
+| **Strategy** | Leasing overseas data centers to access advanced NVIDIA GPUs |
+| **Custom Chips** | Two custom AI GPUs with Broadcom/TSMC (2026 debut) |
+
+#### Overseas Facilities
+
+| Facility | Location | Capacity |
+|----------|----------|----------|
+| Bridge MY06 | Johor, Malaysia | 110 MW (anchor tenant) |
+| AirTrunk SGP2 | Singapore | 78 MW |
+| Additional Malaysia | Johor | $2.1-2.4B expansion |
+
+### Baidu
+
+| Attribute | Details |
+|-----------|---------|
+| **Market Share** | 40.4% of China's GPU cloud market (leading) |
+| **Kunlun Cluster** | 30,000+ Kunlun P800 chips |
+| **Target** | 1 million-chip Kunlun cluster by 2030 |
+| **Chip Roadmap** | M100 (2026), M300 (2027), N-series (2029) |
+
+#### Key Facilities
+
+| Facility | Location | Scale |
+|----------|----------|-------|
+| Yangquan Cloud Computing Center | Shanxi Province | 280,000 servers planned (largest single DC in Asia) |
+| Baoding Data Center | Hebei Province | Mega cloud computing center |
+
+### Huawei
+
+| Attribute | Details |
+|-----------|---------|
+| **Ascend Chip Production** | 600K Ascend 910C (2025) → 1.6M (2026) |
+| **Roadmap** | Ascend 950PR (Q1 2026), 950DT (Q4 2026), 960 (Q4 2027) |
+| **SuperPods** | Atlas 950 SuperPoD: 8,192 chips (Q4 2026); Atlas 960 SuperPoD: 15,488 chips (Q4 2027) |
+| **Market Share** | 30.1% of China's GPU cloud market |
+
+---
+
+## CoreWeave
+
+**Status:** Operational and Expanding Rapidly
+
+| Attribute | Details |
+|-----------|---------|
+| **Total Facilities** | 33 data centers (Q3 2025) |
+| **Total GPUs** | 250,000+ GPUs |
+| **Active Power** | 590 MW (Q3 2025), targeting 850+ MW by end 2025 |
+| **Contracted Power** | 2.9 GW |
+| **Revenue Backlog** | $55.6B |
+| **2026 CapEx** | $24-28B (doubling 2025) |
+
+### Major Contracts
+
+| Customer | Value | Term |
+|----------|-------|------|
+| OpenAI | $22.4B | Through 2029 |
+| Meta | $14.2B | Through 2031 |
+| Microsoft | ~$10B | Through 2030 |
+| NVIDIA | $6.3B + $2B investment | Through 2032 |
+
+### Major U.S. Facilities
+
+| Location | Capacity | Investment | Status |
+|----------|----------|------------|--------|
+| Helios (Dickens County, TX) | 800 MW total | Galaxy partnership | Under construction |
+| Lancaster, Pennsylvania | 100-300 MW | $6B | Under construction (2027) |
+| Ellendale, North Dakota | 250-400 MW | $7B revenue | Under construction |
+| Cheyenne, Wyoming | 302 MW | $1.2B (Related Digital) | Under construction (2026) |
+| Denton, Texas | 260 MW | $1.2B | Under construction |
+| Austin, Texas | 200 MW | Core Scientific | Operational |
+| Chester, Virginia | 120 MW | Chirisa | Operational |
+| Kenilworth, New Jersey | 392K sq ft | $1.8B | Under construction (2027) |
+| Plano, Texas | — | $1.6B (NVIDIA) | Operational (3,500+ H100) |
+| Volo, Illinois | 14 MW | Bloom Energy fuel cells | 2025 |
+| Hillsboro, Oregon | 36 MW | Digital Realty | Operational |
+| Muskogee, Oklahoma | 100 MW | Core Scientific | Under construction |
+
+### European Facilities
+
+| Location | Capacity | Status |
+|----------|----------|--------|
+| Crawley, UK | 24 MW | Operational (Oct 2024) |
+| London Docklands | 224 MVA | Operational (Dec 2024) |
+| Barcelona, Spain | 10,224 H200 GPUs | Operational (2025) |
+| Norway | Part of $2.2B | 2025 |
+| Sweden | Part of $2.2B | 2025 |
+
+**UK Investment:** £2.5B total committed
+
+### Canada
+
+| Location | Details |
+|----------|---------|
+| Cambridge, Ontario | Cohere anchor customer; $240M federal funding |
+
+**Notable:** First-to-market GB200 NVL72 (Feb 2025); first GB300 NVL72 deployment (July 2025). MLPerf record with 2,496 GB200 GPUs.
+
+---
+
+## Amazon/AWS — Project Rainier (Indiana)
 
 **Status:** Operational
 
 | Attribute | Details |
 |-----------|---------|
-| **Location** | Believed to be Henrico County, Virginia |
-| **Hardware** | 2,000 DGX A100 systems (16,000 A100 GPUs total) |
-| **Storage** | Up to half an exabyte |
-| **Network** | One of the largest flat InfiniBand fabrics (48,000 links, 2,000 switches) |
+| **Location** | New Carlisle, Indiana |
+| **Investment** | $11 billion |
+| **Power Capacity** | 2.2 GW (full buildout) |
+| **Site Size** | 1,200 acres; 30 buildings (200K sq ft each) |
+| **Chip Count** | ~500,000 Trainium2 chips operational; scaling to 1 million by end 2025 |
+| **Partner** | Anthropic (primary user for Claude training) |
 
-### Other GPU Clusters
+**Timeline:**
 
-- **129K H100 Cluster:** Meta emptied 5 production data centers to create a single 129,000 H100 GPU cluster ("history's largest forklift upgrade")
-- **Two 24K GPU Clusters:** One RoCE (used for Llama 3), one InfiniBand
-- **Tent-Based Deployments:** Using tents to deploy GPU clusters faster while permanent facilities are built
+- Construction started Sept 2024
+- 7 buildings operational Oct 2025
+
+**Notable:** Largest capital investment in Indiana history. Co-designed silicon with Anthropic.
+
+### AWS Trainium Roadmap
+
+- **Trainium2:** 64 chips per UltraServer via NeuronLink
+- **Trainium3:** 2.52 PFLOPS/chip, 144 GB HBM3e, 4.9 TB/s bandwidth; 4x performance improvement (late 2025)
+- **Trainium4:** In development
+
+---
+
+## Microsoft — Azure AI Superfactory
+
+**Status:** Operational and Expanding
+
+### Wisconsin (Milwaukee) — Primary Site
+
+| Attribute | Details |
+|-----------|---------|
+| **Power Capacity** | 350+ MW |
+| **Investment** | $7.3B total |
+| **Site Size** | 315 acres |
+| **Cooling** | Zero-water liquid cooling |
+| **Status** | Operational |
+
+**Notable:** Described as "world's most powerful AI data center."
+
+### Other Fairwater Sites
+
+- Atlanta (under construction)
+- 5+ additional sites nationwide (under construction)
+
+### International Expansion (via Nscale partnership)
+
+| Location | GPUs | Timeline |
+|----------|------|----------|
+| Norway | 52,000 GB300 | 2026-2027 |
+| UK (Loughton) | 23,000 GB300 | Q1 2027 |
+| Portugal (Sines) | 12,600 GB300 | Q1 2026 |
+| Texas | 104,000 GB300 | Q3 2026 |
+
+**Total Nscale deal:** ~200,000 NVIDIA GB300 GPUs, ~$17.4B
+
+### Architecture
+
+- **Scale:** 2 GW multi-site AI data center
+- **Network:** Planet-scale AI superfactory integrating 400+ global Azure data centers via AI WAN across 70 regions
+- **Rubin deployment:** First major cloud provider to deploy Vera Rubin-based instances (2026)
+
+---
+
+## Google — TPU Clusters
+
+Google operates two primary multi-datacenter regions optimized for large-scale AI training, plus major expansion facilities.
+
+### Ohio Region (Columbus Area)
+
+| Attribute | Details |
+|-----------|---------|
+| **Locations** | Columbus, New Albany, Lancaster |
+| **Power Capacity** | ~1 GW total across 3 campuses (by end 2025) |
+| **Investment** | $2.3B+, with $1.7B expansion announced |
+| **TPU Generations** | TPU v4, v5, v6 |
+| **Cloud Zone** | us-east5 |
+
+**Notable:** One of only two regions with three Google data centers. Described as "largest AI supercomputer on Earth" with ~500 MW AI-dedicated.
+
+### Iowa/Nebraska Region (Council Bluffs Area)
+
+| Attribute | Details |
+|-----------|---------|
+| **Council Bluffs Power** | >1 GW total campus (500+ MW AI-dedicated) |
+| **Investment** | $4-5B total, plus $7B for Cedar Rapids expansion |
+| **Cloud Zone** | us-central1 (hosts TPU7x, v5p, v6e) |
+
+### Other Major Google Facilities
+
+| Location | Investment | Power | Notes |
+|----------|------------|-------|-------|
+| Texas (Armstrong/Haskell) | **$40B** through 2027 | TBD | Three new AI-dedicated campuses |
+| Kansas City, Missouri | $10B | 400 MW | 500 acres, clean energy |
+| Mayes County, Oklahoma | $9B | — | AI hub, Anthropic TPU partnership |
+| Berkeley County, SC | $9B through 2027 | — | Major campus expansion |
+| Lincoln, Nebraska | $4.7B+ | — | Will be Google's largest individual site |
+| Henderson, Nevada | $2.3B+ | 60 MW | 750K sq ft |
+| The Dalles, Oregon | $1.8B | — | First Google DC (2006), hydropower |
+
+### TPU Specifications
+
+- **TPU v7 (Ironwood):** 9,216-chip pods delivering 42.5 exaFLOPS FP8
+- **TPU v6e (Trillium):** 4.7x v5e performance
+- **Deployment:** Millions of liquid-cooled TPUs, 1+ GW liquid-cooled AI capacity
+- **Capability:** Gigawatt-scale training runs across multiple campuses (used for Gemini)
+- **Anthropic Deal:** Up to 1 million TPU chips, 1+ GW capacity online in 2026
 
 ---
 
@@ -207,350 +410,6 @@ Total committed: **Over $1 trillion** in hardware and cloud agreements.
 
 ---
 
-## Google — TPU Clusters
-
-Google operates two primary multi-datacenter regions optimized for large-scale AI training, plus major expansion facilities.
-
-### Ohio Region (Columbus Area)
-
-| Attribute | Details |
-|-----------|---------|
-| **Locations** | Columbus, New Albany, Lancaster |
-| **Power Capacity** | ~1 GW total across 3 campuses (by end 2025) |
-| **Investment** | $2.3B+, with $1.7B expansion announced |
-| **TPU Generations** | TPU v4, v5, v6 |
-| **Cloud Zone** | us-east5 |
-
-**Notable:** One of only two regions with three Google data centers. Described as "largest AI supercomputer on Earth" with ~500 MW AI-dedicated.
-
-### Iowa/Nebraska Region (Council Bluffs Area)
-
-| Attribute | Details |
-|-----------|---------|
-| **Council Bluffs Power** | >1 GW total campus (500+ MW AI-dedicated) |
-| **Investment** | $4-5B total, plus $7B for Cedar Rapids expansion |
-| **Cloud Zone** | us-central1 (hosts TPU7x, v5p, v6e) |
-
-### Other Major Google Facilities
-
-| Location | Investment | Power | Notes |
-|----------|------------|-------|-------|
-| Texas (Armstrong/Haskell) | **$40B** through 2027 | TBD | Three new AI-dedicated campuses |
-| Kansas City, Missouri | $10B | 400 MW | 500 acres, clean energy |
-| Mayes County, Oklahoma | $9B | — | AI hub, Anthropic TPU partnership |
-| Berkeley County, SC | $9B through 2027 | — | Major campus expansion |
-| Lincoln, Nebraska | $4.7B+ | — | Will be Google's largest individual site |
-| Henderson, Nevada | $2.3B+ | 60 MW | 750K sq ft |
-| The Dalles, Oregon | $1.8B | — | First Google DC (2006), hydropower |
-
-### TPU Specifications
-
-- **TPU v7 (Ironwood):** 9,216-chip pods delivering 42.5 exaFLOPS FP8
-- **TPU v6e (Trillium):** 4.7x v5e performance
-- **Deployment:** Millions of liquid-cooled TPUs, 1+ GW liquid-cooled AI capacity
-- **Capability:** Gigawatt-scale training runs across multiple campuses (used for Gemini)
-- **Anthropic Deal:** Up to 1 million TPU chips, 1+ GW capacity online in 2026
-
----
-
-## Amazon/AWS — Project Rainier (Indiana)
-
-**Status:** Operational
-
-| Attribute | Details |
-|-----------|---------|
-| **Location** | New Carlisle, Indiana |
-| **Investment** | $11 billion |
-| **Power Capacity** | 2.2 GW (full buildout) |
-| **Site Size** | 1,200 acres; 30 buildings (200K sq ft each) |
-| **Chip Count** | ~500,000 Trainium2 chips operational; scaling to 1 million by end 2025 |
-| **Partner** | Anthropic (primary user for Claude training) |
-
-**Timeline:**
-
-- Construction started Sept 2024
-- 7 buildings operational Oct 2025
-
-**Notable:** Largest capital investment in Indiana history. Co-designed silicon with Anthropic.
-
-### AWS Trainium Roadmap
-
-- **Trainium2:** 64 chips per UltraServer via NeuronLink
-- **Trainium3:** 2.52 PFLOPS/chip, 144 GB HBM3e, 4.9 TB/s bandwidth; 4x performance improvement (late 2025)
-- **Trainium4:** In development
-
----
-
-## Microsoft — Azure AI Superfactory
-
-**Status:** Operational and Expanding
-
-### Wisconsin (Milwaukee) — Primary Site
-
-| Attribute | Details |
-|-----------|---------|
-| **Power Capacity** | 350+ MW |
-| **Investment** | $7.3B total |
-| **Site Size** | 315 acres |
-| **Cooling** | Zero-water liquid cooling |
-| **Status** | Operational |
-
-**Notable:** Described as "world's most powerful AI data center."
-
-### Other Fairwater Sites
-
-- Atlanta (under construction)
-- 5+ additional sites nationwide (under construction)
-
-### International Expansion (via Nscale partnership)
-
-| Location | GPUs | Timeline |
-|----------|------|----------|
-| Norway | 52,000 GB300 | 2026-2027 |
-| UK (Loughton) | 23,000 GB300 | Q1 2027 |
-| Portugal (Sines) | 12,600 GB300 | Q1 2026 |
-| Texas | 104,000 GB300 | Q3 2026 |
-
-**Total Nscale deal:** ~200,000 NVIDIA GB300 GPUs, ~$17.4B
-
-### Architecture
-
-- **Scale:** 2 GW multi-site AI data center
-- **Network:** Planet-scale AI superfactory integrating 400+ global Azure data centers via AI WAN across 70 regions
-- **Rubin deployment:** First major cloud provider to deploy Vera Rubin-based instances (2026)
-
----
-
-## CoreWeave
-
-**Status:** Operational and Expanding Rapidly
-
-| Attribute | Details |
-|-----------|---------|
-| **Total Facilities** | 33 data centers (Q3 2025) |
-| **Total GPUs** | 250,000+ GPUs |
-| **Active Power** | 590 MW (Q3 2025), targeting 850+ MW by end 2025 |
-| **Contracted Power** | 2.9 GW |
-| **Revenue Backlog** | $55.6B |
-| **2026 CapEx** | $24-28B (doubling 2025) |
-
-### Major Contracts
-
-| Customer | Value | Term |
-|----------|-------|------|
-| OpenAI | $22.4B | Through 2029 |
-| Meta | $14.2B | Through 2031 |
-| Microsoft | ~$10B | Through 2030 |
-| NVIDIA | $6.3B + $2B investment | Through 2032 |
-
-### Major U.S. Facilities
-
-| Location | Capacity | Investment | Status |
-|----------|----------|------------|--------|
-| Helios (Dickens County, TX) | 800 MW total | Galaxy partnership | Under construction |
-| Lancaster, Pennsylvania | 100-300 MW | $6B | Under construction (2027) |
-| Ellendale, North Dakota | 250-400 MW | $7B revenue | Under construction |
-| Cheyenne, Wyoming | 302 MW | $1.2B (Related Digital) | Under construction (2026) |
-| Denton, Texas | 260 MW | $1.2B | Under construction |
-| Austin, Texas | 200 MW | Core Scientific | Operational |
-| Chester, Virginia | 120 MW | Chirisa | Operational |
-| Kenilworth, New Jersey | 392K sq ft | $1.8B | Under construction (2027) |
-| Plano, Texas | — | $1.6B (NVIDIA) | Operational (3,500+ H100) |
-| Volo, Illinois | 14 MW | Bloom Energy fuel cells | 2025 |
-| Hillsboro, Oregon | 36 MW | Digital Realty | Operational |
-| Muskogee, Oklahoma | 100 MW | Core Scientific | Under construction |
-
-### European Facilities
-
-| Location | Capacity | Status |
-|----------|----------|--------|
-| Crawley, UK | 24 MW | Operational (Oct 2024) |
-| London Docklands | 224 MVA | Operational (Dec 2024) |
-| Barcelona, Spain | 10,224 H200 GPUs | Operational (2025) |
-| Norway | Part of $2.2B | 2025 |
-| Sweden | Part of $2.2B | 2025 |
-
-**UK Investment:** £2.5B total committed
-
-### Canada
-
-| Location | Details |
-|----------|---------|
-| Cambridge, Ontario | Cohere anchor customer; $240M federal funding |
-
-**Notable:** First-to-market GB200 NVL72 (Feb 2025); first GB300 NVL72 deployment (July 2025). MLPerf record with 2,496 GB200 GPUs.
-
----
-
-## Oracle
-
-**Status:** Major cloud infrastructure provider with Stargate partnership
-
-| Initiative | Details |
-|------------|---------|
-| **Stargate Partnership** | Primary infrastructure partner for OpenAI Stargate sites |
-| **AMD MI450 Cluster** | 50,000 GPUs starting Q3 2026 (Helios racks with 72 MI450 chips each, 432 GB HBM4) |
-| **DOE Partnership** | Building largest DOE AI supercomputer (Solstice: 100K Blackwell GPUs; Equinox: 10K Blackwell GPUs in 2026) |
-| **CapEx** | $6.9B (2024) -> $21.2B (2025) -> ~$35B projected (2026) |
-
----
-
-## Tesla — Dojo
-
-**Status:** Shut down (Aug 2025), restarting with new chip iteration
-
-| Attribute | Details |
-|-----------|---------|
-| **Original Locations** | San Jose, CA; Sacramento, CA (NTT facility); Buffalo, NY ($500M planned) |
-| **Hardware** | D1 chip (TSMC 7nm, 50B transistors, 645mm^2); ExaPODs (10 cabinets, 3,000 D1 chips each) |
-| **Shutdown Reason** | Musk: "All paths converged to AI6" (Samsung deal for next-gen chips, $16.5B) |
-
-**Notable:** Restart announced Jan 2026 with new chip iteration.
-
----
-
-## Anthropic
-
-**Status:** Multi-cloud strategy with new owned infrastructure
-
-| Infrastructure | Details |
-|----------------|---------|
-| **AWS Project Rainier** | 500K to 1M Trainium2 chips |
-| **Google Cloud TPUs** | Up to 1 million TPU chips; 1+ GW capacity (2026) |
-| **Microsoft Azure** | $30B commitment ($15B from NVIDIA/Microsoft) |
-| **Fluidstack Partnership** | $50B over multiple years; Texas and New York facilities (2026) |
-
-**Timeline:** First Fluidstack sites live in 2026; 800 permanent jobs, 2,000+ construction jobs.
-
----
-
-## SoftBank — Japan Facilities
-
-| Facility | Location | Power | Status |
-|----------|----------|-------|--------|
-| Hokkaido | Tomakomai | 300+ MW | Under construction (FY2026) |
-| Osaka | Sharp Sakai plant | 150-400 MW | Under construction ($676M acquisition) |
-
-**Current Deployment:** 1,224 NVIDIA Blackwell GPUs (Dec 2025) scaling to 4,000+. Target: 10.6 ExaFLOPS (one of Japan's largest).
-
-**Oracle Partnership:** Eastern Japan DC (April 2026), Western Japan (Oct 2026).
-
----
-
-## Chinese Players
-
-### Alibaba Cloud
-
-| Attribute | Details |
-|-----------|---------|
-| **Investment** | $69B (480B yuan) over 3 years for AI infrastructure |
-| **Custom Chips** | Zhenwu 810E (comparable to NVIDIA H20); tens of thousands deployed |
-
-#### Key Facilities
-
-| Facility | Location | Capacity |
-|----------|----------|----------|
-| Zhangbei Super Intelligent Computing Center | Hebei Province | 12 EFLOPS |
-| Ulanqab Data Center | Inner Mongolia | 3 EFLOPS |
-| Hangzhou Data Center | Zhejiang Province | Hyperscale |
-| Nantong Data Center | Jiangsu Province | Hyperscale |
-
-**Global Expansion (2025-2026):** Brazil, France, Netherlands, Mexico, Japan, South Korea, Malaysia, Dubai
-
-### Tencent
-
-| Attribute | Details |
-|-----------|---------|
-| **Network** | Xingmai 2.0: supports 100,000+ GPUs in single cluster |
-| **Custom Chips** | Zixiao AI chip (internal use, 2x competitor performance) |
-| **CapEx Trend** | Declining due to GPU access constraints |
-
-#### Key Facilities
-
-| Facility | Location | Notes |
-|----------|----------|-------|
-| Guizhou Cave Data Center | Gui'an New Area | 30,000 sqm tunneled into hillside, bomb-shelter design |
-| Tianjin Data Center | Tianjin | 10.54 MW microgrid, serves QQ/WeChat for northern China |
-
-### ByteDance
-
-| Attribute | Details |
-|-----------|---------|
-| **2026 CapEx** | $23B (160B yuan) |
-| **NVIDIA Investment** | $14B for chips, $7B for overseas GPU leasing |
-| **Strategy** | Leasing overseas data centers to access advanced NVIDIA GPUs |
-| **Custom Chips** | Two custom AI GPUs with Broadcom/TSMC (2026 debut) |
-
-#### Overseas Facilities
-
-| Facility | Location | Capacity |
-|----------|----------|----------|
-| Bridge MY06 | Johor, Malaysia | 110 MW (anchor tenant) |
-| AirTrunk SGP2 | Singapore | 78 MW |
-| Additional Malaysia | Johor | $2.1-2.4B expansion |
-
-### Baidu
-
-| Attribute | Details |
-|-----------|---------|
-| **Market Share** | 40.4% of China's GPU cloud market (leading) |
-| **Kunlun Cluster** | 30,000+ Kunlun P800 chips |
-| **Target** | 1 million-chip Kunlun cluster by 2030 |
-| **Chip Roadmap** | M100 (2026), M300 (2027), N-series (2029) |
-
-#### Key Facilities
-
-| Facility | Location | Scale |
-|----------|----------|-------|
-| Yangquan Cloud Computing Center | Shanxi Province | 280,000 servers planned (largest single DC in Asia) |
-| Baoding Data Center | Hebei Province | Mega cloud computing center |
-
-### Huawei
-
-| Attribute | Details |
-|-----------|---------|
-| **Ascend Chip Production** | 600K Ascend 910C (2025) → 1.6M (2026) |
-| **Roadmap** | Ascend 950PR (Q1 2026), 950DT (Q4 2026), 960 (Q4 2027) |
-| **SuperPods** | Atlas 950 SuperPoD: 8,192 chips (Q4 2026); Atlas 960 SuperPoD: 15,488 chips (Q4 2027) |
-| **Market Share** | 30.1% of China's GPU cloud market |
-
-### DeepSeek
-
-| Attribute | Details |
-|-----------|---------|
-| **Training Infrastructure** | 256 server nodes, 2,048 GPUs (H800); R1 trained for $5.6M with 2,000 H800s |
-| **Unique Infrastructure** | Underwater data center off Lingshui, Hainan Island (400+ servers) |
-| **Backbone** | 3 intelligent computing centers in Hohhot |
-| **International** | Aramco Digital Data Center, Dammam, Saudi Arabia |
-
----
-
-## Middle East Sovereign Efforts
-
-### UAE — Stargate UAE / G42
-
-| Attribute | Details |
-|-----------|---------|
-| **Partners** | G42, OpenAI, Oracle, Cisco, SoftBank, NVIDIA |
-| **Location** | Abu Dhabi (10 sq mile campus) |
-| **Power Capacity** | 5 GW total campus; 1 GW initial cluster |
-| **GPUs** | NVIDIA GB300 systems |
-| **Status** | Under construction (civil/structural advanced; first mechanical deliveries received) |
-
-**Timeline:** First 200 MW by 2026; full 1 GW in 3 years.
-
-### Saudi Arabia — Humain
-
-| Attribute | Details |
-|-----------|---------|
-| **Entity** | Humain (state-backed AI entity); SDAIA |
-| **Investment** | $77B infrastructure strategy |
-| **Target Capacity** | 1.9 GW by 2030 |
-| **NVIDIA Partnership** | Up to 5,000 Blackwell GPUs for sovereign AI factory |
-| **AWS Partnership** | Major expansion planned |
-
----
-
 ## European Players
 
 ### Nebius (ex-Yandex)
@@ -598,6 +457,127 @@ Google operates two primary multi-datacenter regions optimized for large-scale A
 
 ---
 
+## Crusoe Energy
+
+**Status:** Lead developer for Stargate project; focus on sustainable AI infrastructure
+
+| Attribute | Details |
+|-----------|---------|
+| **Role** | Develops and operates data centers, leases to Oracle/OpenAI |
+| **Power Pipeline** | 4.5 GW of natural gas secured via turbine JV |
+
+### Facilities
+
+| Location | Power | Status | Notes |
+|----------|-------|--------|-------|
+| **Wyoming (Tallgrass)** | 1.8 GW initial → 10 GW | Announced (July 2025) | Natural gas + renewables + CO2 sequestration |
+| **Abilene, Texas** (Stargate) | 1.2 GW | Operational (Sept 2025) | 980K sq ft live, 8 buildings planned |
+| **Iceland (ICE02)** | 57 MW | Operational | 100% geothermal/hydro, DGX GB200 NVL72 |
+| **Norway (Polar)** | 12-52 MW | Announced | 100% hydroelectric |
+
+**Notable:** Crusoe's Wyoming facility with Tallgrass could become the largest single-site data center at 10 GW potential.
+
+---
+
+## Meta AI Data Centers
+
+### Prometheus (New Albany, Ohio)
+
+**Status:** Opening 2026
+
+| Attribute | Details |
+|-----------|---------|
+| **Power Capacity** | 1 GW (world's first gigawatt-capable data center) |
+| **Design** | Five rapid deployment structures (large tent-like facilities) connected via 300-foot-wide utility corridor with 20-acre power generation yard |
+
+### Hyperion (Louisiana)
+
+**Status:** Under Construction
+
+| Attribute | Details |
+|-----------|---------|
+| **Location** | Richland Parish, Louisiana |
+| **Power Capacity** | 5 GW planned (1.5 GW Phase 1 by end of 2027) |
+| **GPU Count** | ~750,000 GPUs estimated (extrapolated from power) |
+| **Site Size** | 2,250 acres + 1,400 additional acres purchased (~3,650 acres total) |
+| **Cooling** | Liquid immersion and evaporative systems |
+| **Investment** | $27-50B total (Blue Owl Capital JV — 80% ownership) |
+| **Power Source** | Behind-the-meter generation: 400 MW (2x 200 MW sites by Q3 2026); 2.25 GW from 3 new Entergy gas plants (~$4B) |
+
+**Timeline:**
+
+- Construction underway (3,700 workers, peak 5,000 by mid-2026)
+- Phase 1 expected 2028
+- Full buildout late 2027-2028
+
+**Notable:** "Would cover a significant part of Manhattan" per Zuckerberg. World's largest individual campus when complete.
+
+### Other Meta AI Facilities
+
+| Facility | Location | Power | Investment | Status |
+|----------|----------|-------|------------|--------|
+| Lebanon | Indiana | 1 GW | $10B+ | Under construction (2027) |
+| Temple | Texas | — | $800M+ | Under construction |
+| Kuna | Idaho | 200 MW | ~$1B | Completing 2025 |
+
+### Research SuperCluster (RSC)
+
+**Status:** Operational
+
+| Attribute | Details |
+|-----------|---------|
+| **Location** | Believed to be Henrico County, Virginia |
+| **Hardware** | 2,000 DGX A100 systems (16,000 A100 GPUs total) |
+| **Storage** | Up to half an exabyte |
+| **Network** | One of the largest flat InfiniBand fabrics (48,000 links, 2,000 switches) |
+
+### Other GPU Clusters
+
+- **129K H100 Cluster:** Meta emptied 5 production data centers to create a single 129,000 H100 GPU cluster ("history's largest forklift upgrade")
+- **Two 24K GPU Clusters:** One RoCE (used for Llama 3), one InfiniBand
+- **Tent-Based Deployments:** Using tents to deploy GPU clusters faster while permanent facilities are built
+
+---
+
+## SoftBank — Japan Facilities
+
+| Facility | Location | Power | Status |
+|----------|----------|-------|--------|
+| Hokkaido | Tomakomai | 300+ MW | Under construction (FY2026) |
+| Osaka | Sharp Sakai plant | 150-400 MW | Under construction ($676M acquisition) |
+
+**Current Deployment:** 1,224 NVIDIA Blackwell GPUs (Dec 2025) scaling to 4,000+. Target: 10.6 ExaFLOPS (one of Japan's largest).
+
+**Oracle Partnership:** Eastern Japan DC (April 2026), Western Japan (Oct 2026).
+
+---
+
+## Middle East Sovereign Efforts
+
+### UAE — Stargate UAE / G42
+
+| Attribute | Details |
+|-----------|---------|
+| **Partners** | G42, OpenAI, Oracle, Cisco, SoftBank, NVIDIA |
+| **Location** | Abu Dhabi (10 sq mile campus) |
+| **Power Capacity** | 5 GW total campus; 1 GW initial cluster |
+| **GPUs** | NVIDIA GB300 systems |
+| **Status** | Under construction (civil/structural advanced; first mechanical deliveries received) |
+
+**Timeline:** First 200 MW by 2026; full 1 GW in 3 years.
+
+### Saudi Arabia — Humain
+
+| Attribute | Details |
+|-----------|---------|
+| **Entity** | Humain (state-backed AI entity); SDAIA |
+| **Investment** | $77B infrastructure strategy |
+| **Target Capacity** | 1.9 GW by 2030 |
+| **NVIDIA Partnership** | Up to 5,000 Blackwell GPUs for sovereign AI factory |
+| **AWS Partnership** | Major expansion planned |
+
+---
+
 ## Lambda Labs
 
 **Status:** Rapidly expanding "Superintelligence Cloud" provider
@@ -621,25 +601,45 @@ Google operates two primary multi-datacenter regions optimized for large-scale A
 
 ---
 
-## Crusoe Energy
+## Oracle
 
-**Status:** Lead developer for Stargate project; focus on sustainable AI infrastructure
+**Status:** Major cloud infrastructure provider with Stargate partnership
+
+| Initiative | Details |
+|------------|---------|
+| **Stargate Partnership** | Primary infrastructure partner for OpenAI Stargate sites |
+| **AMD MI450 Cluster** | 50,000 GPUs starting Q3 2026 (Helios racks with 72 MI450 chips each, 432 GB HBM4) |
+| **DOE Partnership** | Building largest DOE AI supercomputer (Solstice: 100K Blackwell GPUs; Equinox: 10K Blackwell GPUs in 2026) |
+| **CapEx** | $6.9B (2024) -> $21.2B (2025) -> ~$35B projected (2026) |
+
+---
+
+## Tesla — Dojo
+
+**Status:** Shut down (Aug 2025), restarting with new chip iteration
 
 | Attribute | Details |
 |-----------|---------|
-| **Role** | Develops and operates data centers, leases to Oracle/OpenAI |
-| **Power Pipeline** | 4.5 GW of natural gas secured via turbine JV |
+| **Original Locations** | San Jose, CA; Sacramento, CA (NTT facility); Buffalo, NY ($500M planned) |
+| **Hardware** | D1 chip (TSMC 7nm, 50B transistors, 645mm^2); ExaPODs (10 cabinets, 3,000 D1 chips each) |
+| **Shutdown Reason** | Musk: "All paths converged to AI6" (Samsung deal for next-gen chips, $16.5B) |
 
-### Facilities
+**Notable:** Restart announced Jan 2026 with new chip iteration.
 
-| Location | Power | Status | Notes |
-|----------|-------|--------|-------|
-| **Wyoming (Tallgrass)** | 1.8 GW initial → 10 GW | Announced (July 2025) | Natural gas + renewables + CO2 sequestration |
-| **Abilene, Texas** (Stargate) | 1.2 GW | Operational (Sept 2025) | 980K sq ft live, 8 buildings planned |
-| **Iceland (ICE02)** | 57 MW | Operational | 100% geothermal/hydro, DGX GB200 NVL72 |
-| **Norway (Polar)** | 12-52 MW | Announced | 100% hydroelectric |
+---
 
-**Notable:** Crusoe's Wyoming facility with Tallgrass could become the largest single-site data center at 10 GW potential.
+## Anthropic
+
+**Status:** Multi-cloud strategy with new owned infrastructure
+
+| Infrastructure | Details |
+|----------------|---------|
+| **AWS Project Rainier** | 500K to 1M Trainium2 chips |
+| **Google Cloud TPUs** | Up to 1 million TPU chips; 1+ GW capacity (2026) |
+| **Microsoft Azure** | $30B commitment ($15B from NVIDIA/Microsoft) |
+| **Fluidstack Partnership** | $50B over multiple years; Texas and New York facilities (2026) |
+
+**Timeline:** First Fluidstack sites live in 2026; 800 permanent jobs, 2,000+ construction jobs.
 
 ---
 
