@@ -160,27 +160,48 @@ Early adoption driven by cryptocurrency miners (2012-2014), then HPC and superco
 
 Market: $790M (2023) → projected $6-8B by 2029 (~25% CAGR)
 
-## Key Companies in Liquid/Immersion Cooling
+## Major Players in Cooling Equipment
+
+### Large Infrastructure Players
+
+Full-stack data center infrastructure providers (power, cooling, racks, etc.):
+
+| Company | Cooling Market Share | Notes |
+|---------|---------------------|-------|
+| [[companies/vertiv\|Vertiv]] | ~23% | CDUs up to 600kW; CoolCenter Immersion (240kW) |
+| Schneider Electric | ~22% | Largest competitor; broad liquid cooling portfolio |
+| Eaton | - | Power and cooling systems |
+| Legrand | - | Data center infrastructure |
+| Huawei | - | Growing presence in DC equipment |
 
 ### Immersion Cooling Specialists
 
 | Company | Founded | Specialty |
 |---------|---------|-----------|
-| GRC | 2009, Austin TX | Single-phase immersion |
-| LiquidStack | 2012, Netherlands | Two-phase, up to 250kW/rack |
+| GRC | 2009, Austin TX | Single-phase immersion, up to 200kW/rack |
+| LiquidStack | 2012, Netherlands | Two-phase immersion, up to 250kW/rack |
 | Submer | 2015, Barcelona | Single-phase pods |
 | Iceotope | 2005, UK | Precision immersion (oldest specialist) |
+| Asperitas | Netherlands | Immersion cooling |
 
-### Direct-to-Chip Leaders
+### Direct-to-Chip / Cold Plate Leaders
 
-CoolIT Systems, Asetek, Boyd, Motivair
+| Company | Notes |
+|---------|-------|
+| CoolIT Systems | One of three largest liquid cooling companies |
+| Asetek | Leader in direct-to-chip; patented solutions for hyperscalers |
+| Boyd Corporation | One of three largest liquid cooling companies |
+| Motivair | One of three largest liquid cooling companies |
 
-### Large Infrastructure Players
+### Chiller Manufacturers
 
-| Company | Cooling Market Share | Liquid/Immersion Offerings |
-|---------|---------------------|---------------------------|
-| Vertiv | 23% | CDUs up to 600kW; CoolCenter Immersion (240kW) |
-| Schneider Electric | 22% | Broad liquid cooling portfolio |
-| Eaton | - | Power and cooling systems |
+| Company | Notes |
+|---------|-------|
+| Trane | Major HVAC and chiller manufacturer |
+| Carrier | Large-scale chillers |
+| York (Johnson Controls) | Commercial/industrial chillers |
+| Daikin | Global HVAC leader |
 
-Vertiv acquired CoolTera Ltd (Dec 2023) to expand liquid cooling; liquid cooling revenue doubled YoY in Q1 2025.
+### Dielectric Fluid Suppliers
+
+Shell and ExxonMobil are major providers of dielectric fluids for immersion systems.
