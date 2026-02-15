@@ -80,18 +80,107 @@ Servers are submerged in dielectric (non-conductive) fluid instead of using air 
 
 ## GPU Power Progression and Cooling Requirements
 
-| GPU | TDP | Cooling Required |
-|-----|-----|------------------|
-| H100 | 700W | Air or cold plates |
-| B200 | 1,200W | Cold plates (liquid mandatory) |
-| Blackwell Ultra | 1,400W | Cold plates + advanced liquid |
-| Feynman (2028 projected) | 4,400W | Immersion or microfluidics |
+**Key insight:** The cooling limit is **heat flux (W/cm²)**, not total power. A chip's coolability depends on power divided by die area.
+
+| GPU | TDP | Die Size | Heat Flux | Cooling Required |
+|-----|-----|----------|-----------|------------------|
+| H100 | 700W | 814mm² | ~86 W/cm² | Air or cold plates |
+| B200 | 1,200W | ~800mm² | ~150 W/cm² | Cold plates (liquid mandatory) |
+| Blackwell Ultra | 1,400W | ~800mm² | ~175 W/cm² | Cold plates + advanced liquid |
+| Rubin (2026) | 1,800-2,300W | TBD | TBD | Two-phase immersion |
+| Rubin Ultra (2027) | 3,600W | TBD | TBD | Likely microfluidics |
+| Feynman (2028) | 4,400W | ~800mm² | ~550 W/cm² | Microfluidics required |
+| Beyond (2030+) | 6,000-15,000W | TBD | TBD | Definitely microfluidics |
+
+**Cooling technology limits:**
+
+| Technology | Max Heat Flux |
+|------------|---------------|
+| Air cooling | ~10 W/cm² |
+| Single-phase immersion | ~20-30 W/cm² |
+| Two-phase immersion | ~100-200 W/cm² (CHF limit) |
+| Microchannels | 500-1,000 W/cm² |
+| Jet-enhanced microchannels | ~3,000 W/cm² |
 
 **Feynman example:**
-- 8 GPUs × 4,400W = 35,200W just for GPUs
-- Plus CPUs, memory, networking: ~40-45 kW per server
-- Air cooling maxes out at 15-20 kW per rack (not server) — impossible
-- Cold plates technically work but require extreme coolant flow
-- Immersion or microfluidics become practical necessities
+- Single die at 4,400W / 8 cm² = 550 W/cm² — exceeds immersion limit (~200 W/cm²)
+- Even as dual-die module: 4,400W / 16 cm² = 275 W/cm² — still too high
+- Requires microfluidics or must spread heat across even larger area
 
-The industry is preparing now — immersion standardization efforts, pre-fab pods, and Microsoft/Corintis microfluidic cooling (channels etched into silicon) represent paths forward for next-generation chips.
+## Beyond Immersion: Microfluidic Cooling
+
+When chips exceed ~200 W/cm², immersion cooling hits its physical limit (Critical Heat Flux — vapor forms insulating film). The next generation is **microfluidic/microchannel cooling**:
+
+**How it works:**
+- Channels (10-500 μm wide) etched directly into silicon backside
+- Coolant flows millimeters from heat-generating transistors
+- Eliminates thermal interface materials (often the bottleneck)
+- Extremely high surface area-to-volume ratio
+
+**Performance:**
+- Standard microchannels: 500-1,000 W/cm²
+- Jet-enhanced microchannels: up to 3,000 W/cm² (state of the art)
+- Microsoft/Georgia Tech demonstrated 3x better than cold plates
+
+**Key players:**
+- Microsoft/Corintis: AI-designed microfluidic channels
+- TSMC: Leading direct-to-silicon cooling integration
+- Georgia Tech: Research on jet-enhanced microchannels
+
+**Timeline:**
+- 2024-2025: Cold plates dominant
+- 2026-2027: Two-phase immersion widespread
+- 2028-2030: Microfluidics adoption begins
+- 2030+: Embedded microfluidics co-designed with silicon
+
+The transition from immersion to microfluidics is the next major inflection point in data center cooling, driven by chips exceeding 2,000-3,000W.
+
+## Immersion Cooling History
+
+| Year | Milestone |
+|------|-----------|
+| 1940s | First used for high-voltage transformers |
+| 2005 | Iceotope founded (UK) — one of earliest immersion companies |
+| 2009 | GRC (Green Revolution Cooling) founded — commercial single-phase begins |
+| 2012 | Allied Control (now LiquidStack) founded for Bitcoin mining data centers |
+| 2014 | First large two-phase deployment (500kW Hong Kong, 95% cooling energy savings) |
+| 2021 | Microsoft — first cloud provider with two-phase immersion in production |
+| 2025 | Liquid cooling considered "fully mainstream" for AI workloads |
+
+Early adoption driven by cryptocurrency miners (2012-2014), then HPC and supercomputing.
+
+## Who Uses Immersion Cooling Today
+
+| Company | Status |
+|---------|--------|
+| Microsoft | Production — first hyperscaler with two-phase immersion (2021) |
+| Meta | Production — $800M investment, deploying two-phase for AI |
+| Google | ~1GW liquid cooling capacity across TPU deployments |
+| CoreWeave | All new facilities from 2025 designed for liquid cooling |
+
+Market: $790M (2023) → projected $6-8B by 2029 (~25% CAGR)
+
+## Key Companies in Liquid/Immersion Cooling
+
+### Immersion Cooling Specialists
+
+| Company | Founded | Specialty |
+|---------|---------|-----------|
+| GRC | 2009, Austin TX | Single-phase immersion |
+| LiquidStack | 2012, Netherlands | Two-phase, up to 250kW/rack |
+| Submer | 2015, Barcelona | Single-phase pods |
+| Iceotope | 2005, UK | Precision immersion (oldest specialist) |
+
+### Direct-to-Chip Leaders
+
+CoolIT Systems, Asetek, Boyd, Motivair
+
+### Large Infrastructure Players
+
+| Company | Cooling Market Share | Liquid/Immersion Offerings |
+|---------|---------------------|---------------------------|
+| Vertiv | 23% | CDUs up to 600kW; CoolCenter Immersion (240kW) |
+| Schneider Electric | 22% | Broad liquid cooling portfolio |
+| Eaton | - | Power and cooling systems |
+
+Vertiv acquired CoolTera Ltd (Dec 2023) to expand liquid cooling; liquid cooling revenue doubled YoY in Q1 2025.
